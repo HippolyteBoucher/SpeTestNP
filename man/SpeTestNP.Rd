@@ -21,9 +21,9 @@ Nonparametric Specification Tests for Linear Models
 \details{
 The package contains the following functions:
   \itemize{
-  \item \code{\link{SpeTest}}
-  \item \code{\link{SpeTest_Stat}}
-  \item \code{\link{SpeTest_Dist}}
+  \item \code{\link{SpeTest}} returns an object of class STNP
+  \item \code{\link{SpeTest_Stat}} computes the test statistic of choice
+  \item \code{\link{SpeTest_Dist}} computes the distribution of the test statistic of choice
   }
 }
 
