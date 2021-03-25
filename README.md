@@ -1,2 +1,2 @@
-# SpeTestNP_R
+# SpeTestNP
 Nonparametric weak-identification robust specification testing R package
