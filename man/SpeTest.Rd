@@ -13,14 +13,14 @@ Nonparametric Specification Tests
 }
 
 \description{
-\code{SpeTest} returns the statistic and the bootstrap p-value of 5 non-parametric specification tests for linear models. The OLS estimator (or the hypothesis that the true model is linear) is tested against all alternatives which are not too small, typically these alternatives are bigger than the square-root of the sample size but it depends on the test which is used.
+\code{SpeTest} returns the statistic and the bootstrap p-value for five different non-parametric specification tests of linearity of the model. The linear specification of the model is tested against all alternatives which are not too small, typically these alternatives are bigger than the square-root of the sample size but it depends on the test which is used.
 }
 
 
 \usage{
-SpeTest(eq,x,y,inter=TRUE,type="icm",boot="wild",nboot=99,
-,ker="normal",knorm="sd",hv="default",cch="default",
-nbeta=200,beta0="default",direct="default")
+SpeTest(eq, x, y, inter=TRUE, type="icm", boot="wild", nboot=99, ker="normal",
+knorm="sd", hv="default", cch="default", nbeta=200, beta0="default", 
+direct="default")
 }
 
 
@@ -116,7 +116,7 @@ the intercept.
 
 
 \details{
-The only things needed for this function are either an \code{"lm"} class model or a dependent variable \code{y} and regressors \code{x} and the Bierens Integrated Conditional Moments test (1982) will be performed.
+By default to perform the test of Bierens (1982), only an object of class \code{"lm"} or a dependent variable \code{y} and a set of covariates \code{x} are needed.
 
 Note that if both an \code{"lm"} model and dependent variable \code{y} and regressors \code{x} are provided or if none are provided then the test will not be performed.
 
@@ -124,8 +124,7 @@ Other tests are available: Zheng (1996), Escanciano (2006), Lavergne and Patilea
 
 A lot more things can and should be specified: the bandwidths; the bootstraps' type and the number of bootstraps samples; the kernel functions and the standardization; if the user has knowledge of the tests coined by Lavergne and Patilea he may choose a higher number of betas for the hypersphere (which may slow significantely the process) and an initial "direction" to the hypersphere for the SICM test (none is given by \code{"default"}) or a starting beta for the PALA test (which is the OLS estimator by \code{"default"}).
 
-The nonparametric conditional variance estimator used in the tests is discussed in Yin, Geng, Li, Wang (2010).
-With regards to the bootstraps type: the wild bootstraps were first introduced by Li and Wang (1997) while the smooth conditional moments bootstraps were coined by Gozalo (1997).
+The nonparametric conditional variance estimator used in the tests is discussed in Yin, Geng, Li, Wang (2010). The wild bootstraps of Li and Wang (1997) and the smooth conditional moments bootstraps of Gozalo (1997) can be used to compute the test p-values.
 }
 
 
@@ -139,7 +138,7 @@ An object of class \code{"STNP"} is a list which contains at least the following
 \item{stat}{The value of the statistic used in the test}
 \item{pval}{The bootstrap p-value}
 \item{type}{The test's type}
-\item{nboot}{The number of bootstraps used}
+\item{nboot}{The number of bootstrap samples used to compute the p-value}
 \item{ker}{The kernel function: \code{"normal"} for the normal p.d.f, \code{"triangle"}
 for the triangular p.d.f, \code{"logistic"} for the logistic p.d.f and
 \code{"sinc"} for the sine cardinal function}
@@ -166,30 +165,30 @@ Maintainer: Pascal Lavergne <lavergnetse@gmail.com>
 
 
 \references{
-H.J. Bierens (1982) Consistent Model Specification Test,
-\cite{Journal of Econometrics}, 20, 105-134
+H.J. Bierens (1982), "Consistent Model Specification Test",
+\cite{Journal of Econometrics}, 20 (1), 105-134
 
-J.C. Escanciano (2006) A Consistent Diagnostic Test for Regression Models using Projections,
-\cite{Economic Theory}, 22, 1030-1051
+J.C. Escanciano (2006), "A Consistent Diagnostic Test for Regression Models using Projections",
+\cite{Economic Theory}, 22 (6), 1030-1051
 
-Gozalo, P.L., (1997) Nonparametric bootstrap analysis with applications to demographic effects in demand functions,
-\cite{Journal of Econometrics}, 81, 357-393.
+Gozalo, P.L., (1997), "Nonparametric Bootstrap Analysis with Applications to Demographic Effects in Demand Functions",
+\cite{Journal of Econometrics}, 81 (2), 357-393.
 
-P. Lavergne and V. Patilea (2008) Breaking the urse of dimensionality in nonparametric testing,
-\cite{Journal of Econometrics}, 143, 103-
+P. Lavergne and V. Patilea (2008), "Breaking the Curse of Dimensionality in Nonparametric Testing",
+\cite{Journal of Econometrics}, 143 (1), 103-122
 
-P. Lavergne and V. Patilea (2012) One for All and All for One: Regression Checks with Many Regressors,
-\cite{Journal of Business and Economic Statistics}, 30, 41-52
+P. Lavergne and V. Patilea (2012), "One for All and All for One: Regression Checks with Many Regressors",
+\cite{Journal of Business and Economic Statistics}, 30 (1), 41-52
 
-Li, Q., S. Wang (1998) A simple consistent bootstrap test for a parametric
-regression function,
-\cite{Journal of Econometrics}, 87, 145-165
+Li, Q., S. Wang (1998), "A Simple Consistent Bootstrap Test for a Parametric
+Regression Function",
+\cite{Journal of Econometrics}, 87 (1), 145-165
 
-Yin, J., Z. Geng, R. Li, H. Wang (2010) Nonparametric covariance model,
-\cite{Statistica Sinica}, 20, 469-479
+Yin, J., Z. Geng, R. Li, H. Wang (2010), "Nonparametric covariance model",
+\cite{Statistica Sinica}, 20 (1), 469-479
 
-J.X. Zheng (1996) A consistent test of functional form via nonparametric estimation techniques,
-\cite{Journal of Econometrics}, 75, 263-289
+J.X. Zheng (1996), "A Consistent Test of Functional Form via Nonparametric Estimation Techniques",
+\cite{Journal of Econometrics}, 75 (2), 263-289
 
 }
 

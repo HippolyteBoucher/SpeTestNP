@@ -1,24 +1,23 @@
 Package: SpeTestNP
 Type: Package
-Version: 1.0.7
-Date: 2021-03-25
+Version: 1.1.0
+Date: 2022-09-05
 Imports:
   np
 Suggests: 
-  pracma
-Title: Nonparametric testing for linear models
+  pracma, foreach
+Title: Nonparametric Testing for Linear Models
 Authors@R: c(
     person("Hippolyte", "Boucher", email = "Hippolyte.Boucher@outlook.com", role = "cre"),
     person("Pascal", "Lavergne", email = "lavergnetse@gmail.com", role = "cre"))
 Maintainer: 
   Pascal Lavergne <lavergnetse@gmail.com>
 Description: 
-    The package has a single do-it-all function called SpeTest which
-    returns the statistic and the bootstrap p-value of a nonparametric specification
-    test. 5 tests are available: Bierens (1982), Zheng (1996), Escanciano (2006),
-    Lavergne and Patilea (2008) and Lavergne and Patilea (2012). Bandwidth and kernel
-    selections are available along with  many other options.
-License: MIT + file LICENSE
+    The package tests nonparametrically the linearity of the model. Five tests are available: Bierens (1982),
+    Zheng (1996), Escanciano (2006),
+    Lavergne and Patilea (2008) and Lavergne and Patilea (2012). Specific bandwidth and kernel methods
+    can be chosen along with other options. The statistic and bootstrapped p-values are returned.
+License: BSD 3-Clause License
 NeedsCompilation: yes
 Author: 
   Hippolyte Boucher  <Hippolyte.Boucher@outlook.com> 
