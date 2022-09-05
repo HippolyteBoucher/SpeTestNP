@@ -22,10 +22,12 @@ To install the package from Github the package `devtools` should be installed an
     
     y<-x+rnorm(n)*0.7
     
-    lm(y~x)
+    eq<-lm(y~x)
     SpeTest(eq,type="zheng",boot="wild",nboot=300)
     
-    # The true model is nonlinear and the test of Lavergne and Patilea (2012) is used with 99 smooth conditional moments bootstrap samples, with 100 values in the hypersphere and starting values equal to 0, 1, and -1, and the result is summarized
+    # The true model is nonlinear and the test of Lavergne and Patilea (2012) is used
+    # with 99 smooth conditional moments bootstrap samples, with 100 values in the
+    # hypersphere and starting values equal to 0, 1, and -1, and the result is summarized
     
     y<-x^2+rnorm(n)*0.7
     summary(SpeTest(x=x,y=y,inter=T,type="sicm",boot="smooth",
