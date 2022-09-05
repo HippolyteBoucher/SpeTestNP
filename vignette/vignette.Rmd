@@ -1,5 +1,5 @@
 ---
-title: "SpeTestNP"
+title: "Testing the linearity of a model with SpeTestNP"
 author: "Hippolyte Boucher"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -24,9 +24,9 @@ knitr::opts_chunk$set(
 
 **Date** 2022-09-05
 
-**Author** Hippolyte Boucher <Hippolyte.Boucher@outlook.com>
+**Author** Hippolyte Boucher [Hippolyte.Boucher\@outlook.com](mailto:Hippolyte.Boucher@outlook.com){.email}
 
-**Maintainer** Pascal Lavergne <lavergnetse@gmail.com>
+**Maintainer** Pascal Lavergne [lavergnetse\@gmail.com](mailto:lavergnetse@gmail.com){.email}
 
 **Depends** np
 
@@ -38,26 +38,24 @@ knitr::opts_chunk$set(
 
 **NeedsCompilation** Yes
 
+## Introduction
 
-#
+## Available Tests
 
+## Installation
 
-# R Markdown
+## Testing
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+## Other Features
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+## References
 
-```{r cars}
-summary(cars)
-```
+H.J. Bierens, ["Conistent Model Specification Test"](https://www.sciencedirect.com/science/article/pii/0304407682901051), *Journal of Econometrics*, 20 (1), 105-134
 
-## Including Plots
+J.X. Zheng, ["A Consistent Test of Functional Form via Nonparametric Estimation Techniques"](https://econpapers.repec.org/article/eeeeconom/v_3a75_3ay_3a1996_3ai_3a2_3ap_3a263-289.htm), *Journal of Econometrics*, 75 (2), 263-289
 
-You can also embed plots, for example:
+J. C. Escanciano, ["A Consistent Diagnostic Test for Regression Models Using Projections"](https://www.jstor.org/stable/4093212), *Econometric Theory*, 22 (6), 1030-1051
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
+P. Lavergne and V. Patilea, ["Breaking the Curse of Dimensionality in Nonparametric Testing"](https://www.sciencedirect.com/science/article/pii/S0304407607001601), *Journal of Econometrics*, 143 (1), 103-122
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+P. Lavergne and V. Patilea, ["One for All and All for One: Regression Checks with Many Regressors"](https://www.tandfonline.com/doi/full/10.1198/jbes.2011.07152), *Journal of Business & Economic Statistics*, 30 (1), 41-52
