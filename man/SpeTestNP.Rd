@@ -14,7 +14,7 @@ Nonparametric Specification Tests for Linear Models
 }
 
 \description{
-\pkg{SpeTestNP} implements various heteroskedasticity robust nonparametric tests of specification for linear models and non-linear additive models: Bierens (1982) Integrated Conditional Moment test; Zheng (1996) test; Escanciano (2006) test; Lavergne and Patilea (2008); Lavergne and Patilea (2012) Smooth Integrated Conditional Moment test.
+\pkg{SpeTestNP} performs nonparametric test of linearity. Five heteroskedasticity-robust tests are available: Bierens (1982), Zheng (1996), Escanciano (2006), Lavergne and Patilea (2008), and Lavergne and Patilea (2012). Specific bandwidth and kernel methods can be chosen along with many other options.
 }
 
 }

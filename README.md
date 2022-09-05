@@ -1,6 +1,6 @@
 # SpeTestNP
 
-This R package allows to test the linearity of a model nonparametrically using five different tests: Bierens (1982), Zheng (1996), Escanciano (2006), Lavergne and Patilea (2008), and Lavergne and Patilea (2012).
+This R package performs nonparametric test of linearity. Five heteroskedasticity-robust tests are available: Bierens (1982), Zheng (1996), Escanciano (2006), Lavergne and Patilea (2008), and Lavergne and Patilea (2012). Specific bandwidth and kernel methods can be chosen along with many other options.
 
 To install the package from Github the package `devtools` should be installed and the following commands should be run:
 
@@ -18,15 +18,18 @@ To install the package from Github the package `devtools` should be installed an
     n<-500
     x<-rnorm(n)
     
-    # The true model is linear and the test of Bierens (1982) is used with default options
+    # The true model is linear and the test of Zheng (1996) is used with 300 wild bootstrap samples
     
     y<-x+rnorm(n)*0.7
-    summary(SpeTest(x=x,y=y,type="bierens",boot="wild",nboot=300))
     
-    # The true model is nonlinear and the test of Escanciano (2006) is used with
+    lm(y~x)
+    SpeTest(eq,type="zheng",boot="wild",nboot=300)
+    
+    # The true model is nonlinear and the test of Lavergne and Patilea (2012) is used with 99 smooth conditional moments bootstrap samples, with 100 values in the hypersphere and starting values equal to 0, 1, and -1, and the result is summarized
     
     y<-x^2+rnorm(n)*0.7
-    summary(SpeTest())
+    summary(SpeTest(x=x,y=y,inter=T,type="sicm",boot="smooth",
+    nbeta=100,direct=c(0,1,-1)))
     
 
 
