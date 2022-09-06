@@ -1,6 +1,6 @@
 # SpeTestNP
 
-This R package performs nonparametric test of linearity. Five heteroskedasticity-robust tests are available: Bierens (1982), Zheng (1996), Escanciano (2006), Lavergne and Patilea (2008), and Lavergne and Patilea (2012). Specific bandwidth and kernel methods can be chosen along with many other options.
+This R package performs nonparametric tests of linearity. Five heteroskedasticity-robust tests are available: Bierens (1982), Zheng (1996), Escanciano (2006), Lavergne and Patilea (2008), and Lavergne and Patilea (2012). Specific bandwidth and kernel methods can be chosen along with many other options.
 
 To install the package from Github the package `devtools` should be installed and the following commands should be run:
 

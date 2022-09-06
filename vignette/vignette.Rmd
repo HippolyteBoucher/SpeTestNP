@@ -18,7 +18,13 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-## Available Tests
+In applied work, it is very common to perform ordinary least squares to evaluate the effect of a set of exogenous variables $x$ on an outcome $y$. This effect is usually assumed to be causal but it may only be an approximation of the regression function in which case counterfactual analysis will be flawed. Thus in the past forty years a literature on general specification tests has developed in order to know if a model is truly linear or not. SpeTestNP is a package which implements the heteroskedasticity-robust version of five specification tests of the linearity of the model.
+
+The author of SpeTestNP is Hipppolyte Boucher and the maintainer is Pascal Lavergne. This vignette describes each test available in SpeTestNP and how to use SpeTestNP to test linearity in practice.
+
+## Testing Linearity
+
+
 
 ## Installation
 
