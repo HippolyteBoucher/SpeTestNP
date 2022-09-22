@@ -3,143 +3,142 @@
 
 \keyword{test}
 \keyword{nonparametric}
+\keyword{parametric}
 
 \concept{nonparametric test}
 \concept{specification test}
 \concept{linear model}
+\concept{parametric model}
+
 
 \title{
-Nonparametric Specification Tests
+Nonparametric specification test
 }
 
 \description{
-\code{SpeTest} tests the linearity of a model against its nonlinearity. It returns the statistic and bootstrap p-value for five different nonparametric specification tests while being robust to heteroskedasticity.
+\code{SpeTest} tests a parametric specification. It returns the test statistic and its p-value for five different heteroskedasticity-robust nonparametric specification tests
 }
 
 
 \usage{
-SpeTest(eq, x, y, inter=TRUE, type="icm", boot="wild", nboot=99, ker="normal",
-knorm="sd", hv="default", cch="default", nbeta=200, beta0="default", 
-direct="default")
+SpeTest(eq, type="icm", rejection="bootstrap", norma="no", boot="wild", nboot=100, para=F, ker="normal",
+knorm="sd", cch="default", hv="default", nbeta="default", direct="default", 
+alphan="default")
 }
 
 
 \arguments{
-  \item{eq}{
-An object of \code{\link{class}} \code{"\link{lm}"} (uneeded if x and y are provided)
-}
-\item{x}{
-A matrix or a vector of regressors which cannot be perfectly colinear (uneeded if eq is provided)
-}
-\item{y}{
-A vector of dependent variables (uneeded if eq is provided)
-}
-\item{inter}{
-When x and y are provided an intercept is included if \code{inter = TRUE}, by default \code{inter = TRUE}
+\item{eq}{
+A fitted model of class \code{lm} or \code{nls}
 }
 \item{type}{
 Test type
 
-To use the test of Bierens (1982) \code{type = "icm"}
+If \code{type = "icm"} the test of Bierens (1982) is performed (default)
 
-To use the test of Zheng (1996) \code{type = "zheng"}
+If \code{type = "zheng"} the test of Zheng (1996) is performed
 
-To use the test of Escanciano (2006) \code{type = "esca"}
+If \code{type = "esca"} the test of Escanciano (2006) is performed, significantly increases computing time
 
-To use the test of Lavergne and Patilea (2008) \code{type = "pala"}
+If \code{type = "pala"} the test of Lavergne and Patilea (2008) is performed
 
-To use the test of Lavergne and Patilea (2012) \code{type = "sicm"}
+If \code{type = "sicm"} the test of Lavergne and Patilea (2012) is performed
+}
+\item{rejection}{
+Rejection rule
+
+If \code{rejection = "bootstrap"} the p-value of the test is based on the bootstrap (default)
+
+If \code{rejection = "asymptotics"} and \code{type = "zheng"} or \code{type = "esca"} or \code{type = "sicm"} the p-value of the test is based on asymptotic normality of the normalized test statistic under the null hypothesis
+
+If \code{type = "icm"} or \code{type = "esca"} the argument \code{rejection} is ignored and the p-value is based on the bootstrap
+}
+\item{norma}{
+Normalization of the test statistic
+
+If \code{norma = "no"} the test statistic is not normalized (default)
+
+If \code{norma = "naive"} the test statistic is normalized with a naive estimator of the variance of its components
+
+If \code{norma = "np"} the test statistic is normalized with a nonparametric estimator of the variance of its components
 }
 \item{boot}{
 Bootstrap method to compute the test p-value
 
-If \code{boot = "wild"} the wild bootstrap of Li and Wang (1998) is used
+If \code{boot = "wild"} the wild bootstrap of Wu (1986) is used (default)
 
 If \code{boot = "smooth"} the smooth conditional moments bootstrap of Gozalo (1997) is used
 }
 \item{nboot}{
-Number of bootstraps used to compute the test p-value, by default \code{nboot = 99}
+Number of bootstraps used to compute the test p-value, by default \code{nboot = 50}
+}
+\item{para}{
+Parallel computing
+
+If \code{para = F} parallel computing is not used to generate the bootstrap samples to compute the test p-value (default)
+
+If \code{para = T} parallel computing is used to generate the bootstrap samples to compute the test p-value, significantly decreases computing time, makes use of all CPU cores except one
 }
 \item{ker}{
-Kernel function used in the central matrix
+Kernel function used in the central matrix and for the nonparametric covariance estimator
 
-If \code{ker = "normal"} the kernel function is the normal p.d.f
+If \code{ker = "normal"} the central matrix kernel function is the normal p.d.f (default)
 
-If \code{ker = "triangle"} the kernel function is the triangular p.d.f
+If \code{ker = "triangle"} the central matrix kernel function is the triangular p.d.f
 
-If \code{ker = "logistic"} the kernel function is the logistic p.d.f
+If \code{ker = "logistic"} the central matrix kernel function is the logistic p.d.f
 
-If \code{ker = "sinc"} the kernel function is the sine cardinal function
+If \code{ker = "sinc"} the central matrix kernel function is the sine cardinal function
 }
 \item{knorm}{
-Normalization of the kernel
+Normalization of the kernel function
 
-If \code{knorm = "sd"} then the standard deviation using the kernel function equals 1
+If \code{knorm = "sd"} then the standard deviation using the kernel function equals 1 (default)
 
-If \code{knorm ="sq"} then the integral of the squared kernel function equals 1.
-}
-\item{hv}{
-Non-parametric errors covariance estimator bandwidth, by \code{"default"} the bandwidth is the scaled rule of thumb \code{cch = 1.06*n^(-1/(4+k))}
+If \code{knorm ="sq"} then the integral of the squared kernel function equals 1
 }
 \item{cch}{
-Central kernel matrix bandwidth 
+Central matrix kernel bandwidth 
 
 If \code{type = "icm"} or \code{type = "esca"} then \code{cch} always equals \code{1}
 
-For \code{type = zheng} the \code{"default"} bandwidth is the scaled
+If \code{type = "zheng"} the \code{"default"} bandwidth is the scaled
 rule of thumb: \code{cch = 1.06*n^(-1/5)}
 
-For \code{type = "sicm"} and \code{type = "pala"} the \code{"default"}
+If \code{type = "sicm"} and \code{type = "pala"} the \code{"default"}
 bandwidth is the scaled rule of thumb: \code{cch = 1.06*n^(-1/(4+k))} where \code{k} is
 the number of regressors
 
 The user may change the bandwidth when \code{type = "zheng"}, \code{type = "sicm"} or \code{type = "pala"}.
 }
+\item{hv}{
+If \code{norma = "np"} or \code{rejection = "bootstrap"} and \code{boot = "smooth"}, \code{hv} is the bandwidth of the nonparametric errors covariance estimator, by \code{"default"} the bandwidth is the scaled rule of thumb \code{hv = 1.06*n^(-1/(4+k))}
+}
 \item{nbeta}{
-If the Patilea and Lavergne or the Smooth Integrated Conditional Moment test
-are used, \code{nbeta} is the number of "betas" in the unit hypersphere used to compute the statistic. Computing time increases with \code{nbeta} large.
+  If \code{type = "pala"} or \code{type = "sicm"}, \code{nbeta} is the number of "betas" in the unit hypersphere used to compute the statistic, computing time increases as \code{nbeta} gets larger
 
-By \code{"default"} it is the \code{200} times the square root of the regressors dimension.
-
-Do not modify unless you have extensive knowledge about the test.
+  By \code{"default"} it is equal to 20 times the square root of the number of exogenous control variables
 }
-\item{beta0}{
-If the Patilea and Lavergne test is used, \code{beta0} is the initial beta from which
-the statistic is computed, by \code{"default"} it is the OLS estimator.
-
-Do not modify unless you have extensive knowledge about the test.
-}
-
 \item{direct}{
-If the Smooth Integrated Conditional Moment test is used, \code{direct} is the
-initial prediction for beta; This direction should be a vector of \code{0} (for
-no direction), \code{1} (for positive direction) and \code{-1} (for negative direction)
+  If \code{type = "pala"}, \code{direct} is the favored direction for beta, by \code{"default"} it is the OLS estimator if \code{class(eq) = "lm"}
+  
+  If \code{type = "sicm"}, \code{direct} is the initial direction for beta. This direction should be a vector of \code{0} (for no direction), \code{1} (for positive direction) and \code{-1} (for negative direction)
 
-By \code{"default"} no direction are given to the hypersphere.
-Do not modify unless you have extensive knowledge about the test.
-
-For ex, \code{c(1,-1,0)} indicates that the user thinks that the 1st regressor
-has a positive effect on the dependent variable, that the 2nd regressor
-has a negative effect on the dependent variable, and that he has no idea
-about the effect of the 3rd regressor.
-
-Note that giving a direction to the intercept does not modify the statistic therefore
-the 1st direction in your vector is given to the 1st regressor which is not
-the intercept.
+  For ex, \code{c(1,-1,0)} indicates that the user thinks that the 1st regressor has a positive effect on the dependent variable, that the 2nd regressor has a negative effect on the dependent variable, and that he has no idea about the effect of the 3rd regressor
+  
+  By \code{"default"} no direction is given to the hypersphere
+}
+\item{alphan}{
+  If \code{type = "pala"}, \code{alphan} is the weight given to the favored direction for beta, by \code{"default"} it is equal to \code{log(n)*n^(-3/2)}
 }
 }
 
 
 \details{
-By default to perform the test of Bierens (1982), only an object of class \code{"lm"} or a dependent variable \code{y} and a set of covariates \code{x} are needed.
+To perform a nonparametric specification test the only argument needed is a model \code{eq} of class \code{lm} or of class \code{nls}.
+But other options can and should be specified: the test type \code{type}, the rejection rule \code{rejection}, the normalization of the test statistic \code{norm}, the bootstrap type \code{boot} and the size of the vector being generated which is equal to the number of bootstrap samples \code{nboot}, whether the vector is generated using parallel computing \code{para}, the central matrix kernel function \code{ker} and its standardization \code{ker}, the bandwidths \code{cch} and \code{hv}. If the user has knowledge of the tests coined by Lavergne and Patilea he may choose a higher number of betas for the hypersphere (which may significantely increase computational time) and an initial "direction" to the hypersphere for the SICM test (none is given by \code{"default"}) or a starting beta for the PALA test (which is the OLS estimator by \code{"default"} if \code{class(eq) = "nls"}).
 
-Note that if both an \code{"lm"} model and dependent variable \code{y} and regressors \code{x} are provided or if none are provided then the test will not be performed.
-
-Other tests are available: Zheng (1996), Escanciano (2006), Lavergne and Patilea (2008) and Lavergne and Patilea Smooth Integrated Conditional Moments test (2012).
-
-A lot more things can and should be specified: the bandwidths, the bootstraps' type and the number of bootstraps samples, the kernel functions and the way the way they are standardized. If the user has knowledge of the tests coined by Lavergne and Patilea he may choose a higher number of betas for the hypersphere (which may significantely increase computational time) and an initial "direction" to the hypersphere for the SICM test (none is given by \code{"default"}) or a starting beta for the PALA test (which is the OLS estimator by \code{"default"}).
-
-The nonparametric conditional variance estimator used in the tests is discussed in Yin, Geng, Li, Wang (2010). The wild bootstraps of Li and Wang (1997) and the smooth conditional moments bootstraps of Gozalo (1997) can be used to compute the test p-values.
+The statistic can be normalized with a naive estimator of the conditional covariance of its elements as in Zheng (1996), or with a nonparametric estimator of the conditional covariance of its elements as in in Yin, Geng, Li, Wang (2010). The p-value is based either on the wild bootstrap of Wu (1986) or on the smooth conditional moments bootstrap of Gozalo (1997).
 }
 
 
@@ -150,24 +149,32 @@ The nonparametric conditional variance estimator used in the tests is discussed 
 
 An object of class \code{"STNP"} is a list which contains the following elements:
 
-\item{stat}{The value of the statistic used in the test}
-\item{pval}{The bootstrap p-value}
+\item{stat}{The value of the test statistic used in the test}
+\item{pval}{The test p-value}
 \item{type}{The type of test which was used}
+\item{boot}{The type of bootstrap which was used to compute the p-value}
 \item{nboot}{The number of bootstrap samples used to compute the p-value}
-\item{ker}{The kernel function which was used}
+\item{ker}{The central matrix kernel function which was used}
 \item{knorm}{The kernel matrix standardisation: \code{"sq"} if the second moment equals
 1 or \code{"sd"} if the standard deviation equals 1
 }
-\item{boot}{The type of bootstrap which was used to compute the p-value}
+\item{cch}{The central matrix kernel function bandwidth}
+\item{hv}{The nonparametric covariance estimator bandwidth}
+\item{nbeta}{The number of directions in the unit hypersphere used to compute the test statistic if \code{type = "pala"} or \code{type = "sicm"}}
+\item{direct}{The preferred / initial direction in the unit hypersphere if \code{type = "pala"} or \code{type = "sicm"}}
+\item{alphan}{The weight given to the preferred direction if \code{type = "pala"}}
 }
 
 
 \note{
-\code{summary.STNP} gives a summary of the test with all the options used.
+\code{print} and \code{print.STNP} print the test statistic and its p-value
+\code{summary} and \code{summary.STNP} give a summary of the test with all the options used
 
-Requires the packages "foreach", "pracma" and "np".
+The data used to obtain the fitted model \code{eq} should not contain factors, factor variables should be transformed into dummy variables a priori
 
-For more information and to be able to use the package to its full potential see the references.
+Requires the packages \code{stats}  (already installed and loaded by default in Rstudio), \code{foreach}, \code{parallel} and \code{doParallel} (if parallel computing is used to generate the vector) to be installed
+
+For more information and to be able to use the package to its full potential see the references
 }
 
 
@@ -177,19 +184,23 @@ n <- 100
 k <- 2
 x <- matrix(rnorm(n*k),ncol=k)
 y<-1+x\%*\%(1:k)+rnorm(n)
+
 eq<-lm(y~x+0)
 
-SpeTest(eq,type="zheng",boot="wild",nboot=300)
+summary(SpeTest(eq=eq,type="sicm",norma="naive",boot="smooth",nbeta=100,direct=c(1,-1)))
 
-summary(SpeTest(x=x,y=y,inter=T,type="sicm",boot="smooth",
-nbeta=100,direct=c(0,1,-1)))
+eq<-nls(out~expla1*a+b*expla2+c,start=(a=0,b=4,c=2),data=data.frame(out=y,expla1=x[,1],expla2=x[,2]))
+
+print(SpeTest(eq=eq,type="sicm",norma="naive",boot="smooth",nbeta=100,direct=c(1,-1)))
+
 }
 }
 
 
 \author{
-Hippolyte Boucher <Hippolyte.Bocuher@outlook.com>
-Maintainer: Pascal Lavergne <lavergnetse@gmail.com>
+Hippolyte Boucher <Hippolyte.Boucher@outlook.com>
+
+Pascal Lavergne <lavergnetse@gmail.com>
 }
 
 
@@ -201,22 +212,22 @@ J.C. Escanciano (2006), "A Consistent Diagnostic Test for Regression Models usin
 \cite{Economic Theory}, 22 (6), 1030-1051
 
 P.L. Gozalo (1997), "Nonparametric Bootstrap Analysis with Applications to Demographic Effects in Demand Functions",
-\cite{Journal of Econometrics}, 81 (2), 357-393.
+\cite{Journal of Econometrics}, 81 (2), 357-393
 
 P. Lavergne and V. Patilea (2008), "Breaking the Curse of Dimensionality in Nonparametric Testing", \cite{Journal of Econometrics}, 143 (1), 103-122
 
 P. Lavergne and V. Patilea (2012), "One for All and All for One: Regression Checks with Many Regressors",
 \cite{Journal of Business and Economic Statistics}, 30 (1), 41-52
 
-Li, Q., S. Wang (1998), "A Simple Consistent Bootstrap Test for a Parametric
-Regression Function",
-\cite{Journal of Econometrics}, 87 (1), 145-165
 
-Yin, J., Z. Geng, R. Li, H. Wang (2010), "Nonparametric covariance model",
+C.F.J. Wu (1986), "Jacknife, bootstrap and other resampling methods in regression analysis (with discussion)", \cite{Annals of Statistics}, 14 (4), 1261-1350
+
+J. Yin, Z. Geng, R. Li, H. Wang (2010), "Nonparametric covariance model",
 \cite{Statistica Sinica}, 20 (1), 469-479
 
 J.X. Zheng (1996), "A Consistent Test of Functional Form via Nonparametric Estimation Techniques",
 \cite{Journal of Econometrics}, 75 (2), 263-289
+
 
 }
 

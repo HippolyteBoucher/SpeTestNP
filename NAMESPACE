@@ -1,1 +1,5 @@
 exportPattern(".")
+export(print.STNP)
+S3method(print, STNP)
+export(summary.STNP)
+S3method(summary, STNP)
