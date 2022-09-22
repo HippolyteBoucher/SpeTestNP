@@ -40,7 +40,7 @@ To install the package from Github the package `devtools` should be installed an
     # The test of Lavergne and Patilea (2012) is used with a p-value based on the
     # asymptotic distribution of the normalized test statistic under the null hypothesis
     
-    summary(SpeTest(eq=eq,type="sicm",rejection="asymptotics")
+    summary(SpeTest(eq=eq,type="sicm",rejection="asymptotics"))
     
 
 ## References 
