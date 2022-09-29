@@ -40,6 +40,6 @@ y<-1+x\%*\%(1:k)+rnorm(n)
 eq<-lm(y~x+0)
 
 
-print(SpeTest(eq=eq,type="icm",norma="np"))
+print(SpeTest(eq=eq,type="icm",nboot=50))
 
 }

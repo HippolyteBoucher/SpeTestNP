@@ -192,12 +192,12 @@ y<-1+x\%*\%(1:k)+rnorm(n)
 
 eq<-lm(y~x+0)
 
-summary(SpeTest(eq=eq,type="sicm",norma="naive",boot="smooth",nbeta=20,direct=c(1,-1)))
+summary(SpeTest(eq=eq,type="icm",norma="naive",boot="smooth"))
 
 eq<-nls(out~expla1*a+b*expla2+c,start=list(a=0,b=4,c=2),
 data=data.frame(out=y,expla1=x[,1],expla2=x[,2]))
 
-print(SpeTest(eq=eq,type="sicm",norma="naive",boot="smooth",nbeta=20,direct=c(1,-1)))
+print(SpeTest(eq=eq,type="icm",norma="naive",boot="smooth"))
 
 }
 
