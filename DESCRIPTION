@@ -4,10 +4,7 @@ Title: Nonparametric Tests of Parametric Specifications
 Version: 1.2.0
 Date: 2022-09-20
 Depends:
-  R, stats, foreach, parallel, doParallel
-Authors@R: 
-  c(person("Hippolyte","Boucher",role=c("aut","cre"),email="Hippolyte.Boucher@outlook.com"),
-    person("Pascal","Lavergne",role=c("ctb"),email="lavergnetse@gmail.com"))
+  stats, foreach, parallel, doParallel
 Author:
   Hippolyte Boucher [aut, cre],
   Pascal Lavergne [ctb]
@@ -20,8 +17,10 @@ Description:
     and Lavergne and Patilea (2012). Specific bandwidth and kernel
     methods can be chosen along with many other options.
     Allows parallel computing to quickly compute p-values based on the bootstrap.
-VignetteBuilder: knitr
+BuildVignettes: 0
+VignetteBuilder: knitr, formatR, rmarkdown
 License: GPL-2
 NeedsCompilation: yes
 Encoding: UTF-8
+URL: 
 LazyData: true

@@ -21,9 +21,9 @@ Nonparametric specification test
 
 
 \usage{
-SpeTest(eq, type="icm", rejection="bootstrap", norma="no", boot="wild", nboot=100, para=F, ker="normal",
-knorm="sd", cch="default", hv="default", nbeta="default", direct="default", 
-alphan="default")
+SpeTest(eq, type="icm", rejection="bootstrap", norma="no", boot="wild", 
+nboot=50, para=F, ker="normal",knorm="sd", cch="default", hv="default", 
+nbeta="default", direct="default", alphan="default")
 }
 
 
@@ -143,11 +143,11 @@ The statistic can be normalized with a naive estimator of the conditional covari
 
 
 \value{
-\code{SpeTest} returns an object of \code{\link{class}} \code{"STNP"}.
+\code{SpeTest} returns an object of \code{\link{class}} \code{STNP}.
 
 \code{\link{summary}} and \code{\link{print}} can be used on objects of this class.
 
-An object of class \code{"STNP"} is a list which contains the following elements:
+An object of class \code{STNP} is a list which contains the following elements:
 
 \item{stat}{The value of the test statistic used in the test}
 \item{pval}{The test p-value}
@@ -165,11 +165,17 @@ An object of class \code{"STNP"} is a list which contains the following elements
 \item{alphan}{The weight given to the preferred direction if \code{type = "pala"}}
 }
 
+\seealso{
+\code{print} and \code{\link{print.STNP}} applied to an object of class \code{STNP} print the specification test statistic and its p-value
+
+\code{summary} and \code{\link{summary.STNP}} applied to an object of class \code{STNP} print a summary of the specification test with all the options used
+
+\code{\link{SpeTest_Stat}} is the function which only returns the specification test statistic
+
+\code{\link{SpeTest_Dist}} generates a vector drawn from the distribution of the test statistic under the null hypothesis using the bootstrap
+}
 
 \note{
-\code{print} and \code{print.STNP} print the test statistic and its p-value
-\code{summary} and \code{summary.STNP} give a summary of the test with all the options used
-
 The data used to obtain the fitted model \code{eq} should not contain factors, factor variables should be transformed into dummy variables a priori
 
 Requires the packages \code{stats}  (already installed and loaded by default in Rstudio), \code{foreach}, \code{parallel} and \code{doParallel} (if parallel computing is used to generate the vector) to be installed
@@ -179,7 +185,6 @@ For more information and to be able to use the package to its full potential see
 
 
 \examples{
-\code{
 n <- 100
 k <- 2
 x <- matrix(rnorm(n*k),ncol=k)
@@ -187,13 +192,13 @@ y<-1+x\%*\%(1:k)+rnorm(n)
 
 eq<-lm(y~x+0)
 
-summary(SpeTest(eq=eq,type="sicm",norma="naive",boot="smooth",nbeta=100,direct=c(1,-1)))
+summary(SpeTest(eq=eq,type="sicm",norma="naive",boot="smooth",nbeta=20,direct=c(1,-1)))
 
-eq<-nls(out~expla1*a+b*expla2+c,start=(a=0,b=4,c=2),data=data.frame(out=y,expla1=x[,1],expla2=x[,2]))
+eq<-nls(out~expla1*a+b*expla2+c,start=list(a=0,b=4,c=2),
+data=data.frame(out=y,expla1=x[,1],expla2=x[,2]))
 
-print(SpeTest(eq=eq,type="sicm",norma="naive",boot="smooth",nbeta=100,direct=c(1,-1)))
+print(SpeTest(eq=eq,type="sicm",norma="naive",boot="smooth",nbeta=20,direct=c(1,-1)))
 
-}
 }
 
 

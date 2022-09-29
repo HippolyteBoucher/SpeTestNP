@@ -11,7 +11,7 @@
 
 <meta name="author" content="Hippolyte Boucher" />
 
-<meta name="date" content="2022-09-22" />
+<meta name="date" content="2022-09-29" />
 
 <title>Nonparametric Specification Testing with SpeTestNP</title>
 
@@ -1633,7 +1633,7 @@ pre code {
 <h1 class="title toc-ignore">Nonparametric Specification Testing with
 SpeTestNP</h1>
 <h4 class="author">Hippolyte Boucher</h4>
-<h4 class="date">2022-09-22</h4>
+<h4 class="date">2022-09-29</h4>
 
 </div>
 
@@ -1705,12 +1705,14 @@ specification is right or wrong. <code>SpeTestNP</code> is a package
 which implements heteroskedasticity-robust specification tests of
 parametric models from Bierens (1982), Zheng (1996), Escanciano (2006),
 Lavergne and Patilea (2008), and Lavergne and Patilea (2012).</p>
-<p>The author, creator and maintainer of <code>SpeTestNP</code> is
-Hipppolyte Boucher and Pascal Lavergne is a contributor. This vignette
-describes the principle behind each test available in
-<code>SpeTestNP</code>, then how to use <code>SpeTestNP</code> to test a
-parametric specification in practice with an application to the wage
-returns on education and age.</p>
+<p>Hippolyte Boucher (<a href="mailto:Hippolyte.Boucher@outlook.com" class="email">Hippolyte.Boucher@outlook.com</a>) is the author of
+<code>SpeTestNP</code> and Pascal Lavergne (<a href="mailto:lavergnetse@gmail.com" class="email">lavergnetse@gmail.com</a>) is a contributor. Both
+Hippolyte Boucher and Pascal Lavergne are maintainers and any question
+or bug should be reported to one of them. This vignette describes the
+principle behind each test available in <code>SpeTestNP</code>, then how
+to use <code>SpeTestNP</code> to test a parametric specification in
+practice with an application to the wage returns on education and
+age.</p>
 </div>
 <div id="testing-for-a-parametric-specification" class="section level1">
 <h1>Testing for a parametric specification</h1>
@@ -2086,9 +2088,12 @@ the true shape of expected wages conditional on years of education and
 age.</p>
 <div id="installation" class="section level2">
 <h2>Installation</h2>
-<p><code>SpeTestNP</code> can be downloaded and installed using the
-package <code>devtools</code> by running the following lines of
-code:</p>
+<p>To install <code>SpeTestNP</code> from CRAN simply run the following
+command:</p>
+<pre class="r"><code>install.packages(&quot;SpeTestNP&quot;)</code></pre>
+<p>To install <code>SpeTestNP</code> from Github the package
+<code>devtools</code> should be installed and the following commands
+should be run:</p>
 <pre class="r"><code>install.packages(&quot;devtools&quot;)
 
 library(&quot;devtools&quot;)
@@ -2098,9 +2103,8 @@ install_github(&quot;HippolyteBoucher/SpeTestNP&quot;)</code></pre>
 <code>help(install_github)</code> and
 <code>help(install.packages)</code>. Alternatively users can download
 the package and directly install it with the CMD. <code>SpeTestNP</code>
-will soon be available on CRAN. <code>SpeTestNP</code> requires the
-packages <code>stats</code> (already installed and loaded by default in
-Rstudio), <code>foreach</code>, <code>parallel</code> and
+requires the packages <code>stats</code> (already installed and loaded
+by default in Rstudio), <code>foreach</code>, <code>parallel</code> and
 <code>doParallel</code> (if parallel computing is used to generate the
 vector) to be installed.</p>
 </div>
@@ -2384,7 +2388,7 @@ age only:</p>
 ##   Bierens (1982) integrated conditional moment test 
 ## 
 ##   Test statistic :  1.1218 
-##   Bootstrap p-value :  0.84 
+##   Bootstrap p-value :  0.76 
 ## </code></pre>
 <p>Clearly the quadratic specification of the expectation conditional on
 age is not rejected, the p-value is above 50%. Conditional on education
@@ -2436,7 +2440,7 @@ only:</p>
 ##   Bierens (1982) integrated conditional moment test 
 ## 
 ##   Test statistic :  41.9029 
-##   Bootstrap p-value :  0 
+##   Bootstrap p-value :  0.02 
 ## </code></pre>
 <pre class="r"><code>    SpeTest( lm_educ2, para = T )</code></pre>
 <pre><code>## 
@@ -2514,7 +2518,7 @@ age, education, and their square included as control variables:</p>
 ##   Bierens (1982) integrated conditional moment test 
 ## 
 ##   Test statistic :  2.62128 
-##   Bootstrap p-value :  0 
+##   Bootstrap p-value :  0.02 
 ## </code></pre>
 <p>We reject these two specifications because the p-value is equal to 0.
 They do not approximate properly the conditional expectation with
@@ -2532,7 +2536,7 @@ as controls:</p>
 ##   Bierens (1982) integrated conditional moment test 
 ## 
 ##   Test statistic :  0.0184 
-##   Bootstrap p-value :  0.94 
+##   Bootstrap p-value :  0.88 
 ## </code></pre>
 <p>And we do not reject this specification because the p-value is above
 50%. This means that the expectation of earnings conditional on age and

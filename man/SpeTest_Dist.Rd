@@ -20,7 +20,7 @@ Nonparametric specification test statistic distribution
 }
 
 \usage{
-SpeTest_Dist(eq, type="icm", norma="no", boot="wild", nboot=100, para=F, ker="normal",
+SpeTest_Dist(eq, type="icm", norma="no", boot="wild", nboot=50, para=F, ker="normal",
 knorm="sd", cch="default", hv="default", nbeta="default", direct="default", 
 alphan="default")
 }
@@ -135,6 +135,12 @@ The statistic can be normalized with a naive estimator of the conditional covari
 \code{SpeTest_Dist} returns a vector of size \code{nboot} which is drawn from the distribution of the test statistic under the null hypothesis using the bootstrap
 }
 
+\seealso{
+\code{\link{SpeTest}} is the function which performs a specification test and records it along with all its options in an object of class \code{STNP}
+
+\code{\link{SpeTest_Stat}} is the function which only returns the specification test statistic
+}
+
 
 \note{
 The data used to obtain the fitted model \code{eq} should not contain factors, factor variables should be transformed into dummy variables a priori
@@ -146,7 +152,6 @@ For more information and to be able to use the package to its full potential see
 
 
 \examples{
-\code{
 n <- 100
 k <- 2
 x <- matrix(rnorm(n*k),ncol=k)
@@ -154,13 +159,13 @@ y<-1+x\%*\%(1:k)+rnorm(n)
 
 eq<-lm(y~x+0)
 
-SpeTest_Dist(eq=eq,type="zheng",boot="wild",nboot=300,para=T)
+SpeTest_Dist(eq=eq,type="zheng",boot="wild",nboot=10)
 
-eq<-nls(out~expla1*a+b*expla2+c,start=(a=0,b=4,c=2),data=data.frame(out=y,expla1=x[,1],expla2=x[,2]))
+eq<-nls(out~expla1*a+b*expla2+c,start=list(a=0,b=4,c=2),
+data=data.frame(out=y,expla1=x[,1],expla2=x[,2]))
 
-SpeTest_Dist(eq=eq,type="zheng",boot="wild",nboot=300,para=T)
+SpeTest_Dist(eq=eq,type="zheng",boot="wild",nboot=20)
 
-}
 }
 
 

@@ -6,7 +6,7 @@
 
 
 SpeTest_Dist<-function(eq,type="icm",norma="no",boot="wild",nboot=50,para=F,
-                       ker="normal",knorm="sd",hv="default",cch="default",
+                       ker="normal",knorm="sd",cch="default",hv="default",
                        nbeta="default",direct="default",alphan="default"){
   
   if (class(eq)=="lm" || class(eq)=="nls"){
@@ -50,7 +50,7 @@ SpeTest_Dist<-function(eq,type="icm",norma="no",boot="wild",nboot=50,para=F,
       
       if (ker=="sinc") # Sine-cardinal function
       {
-        out <- sqrt(3/2)*sinc(x)^2
+        out <- sqrt(3/2)*(sin(x*pi)/(x*pi))^2
         out <- apply(out, 1, function(x) replace(x,list=which(x=="NaN"),values=1))
       }
       
@@ -454,7 +454,7 @@ SpeTest_Dist<-function(eq,type="icm",norma="no",boot="wild",nboot=50,para=F,
     ### Lavergne and Patilea (2008)
     
     pala<-function(uhat,x,hyper,norma=F,cova="naive",ker,knorm,cch,hv,
-                   direct,est,alphan){
+                   direct,alphan){
       
       n<-dim(x)[1]
       k<-dim(x)[2]
@@ -548,7 +548,7 @@ SpeTest_Dist<-function(eq,type="icm",norma="no",boot="wild",nboot=50,para=F,
     
     # Compute one bootstrap statistics
     
-    s_boot <- function(uhat,w,x,x_sd,fit,eq,W_mat,hyper,type,norma,cova,ker,knorm,cch,hv,direct,est,alphan){
+    s_boot <- function(uhat,w,x,x_sd,fit,eq,W_mat,hyper,type,norma,cova,ker,knorm,cch,hv,direct,alphan){
       
       # Create a vector of simulated outcomes
       
@@ -574,7 +574,7 @@ SpeTest_Dist<-function(eq,type="icm",norma="no",boot="wild",nboot=50,para=F,
                     "zheng"=zheng(uhat=uhatb,x=x_sd,norma=norma,cova=cova,ker=ker,knorm=knorm,cch=cch,hv=hv),
                     "esca"=esca(uhat=uhatb,W_mat=W_mat,norma=norma,cova=cova,ker=ker,knorm=knorm,hv=hv),
                     "pala"=pala(uhat=uhatb,x=x_sd,hyper=hyper,norma=norma,cova=cova,ker=ker,
-                                knorm=knorm,cch=cch,hv=hv,direct=direct,est=est,alphan=alphan),
+                                knorm=knorm,cch=cch,hv=hv,direct=direct,alphan=alphan),
                     "sicm"=sicm(uhat=uhatb,x=x_sd,hyper=hyper,norma=norma,cova=cova,ker=ker,
                                 knorm=knorm,cch=cch,hv=hv)))
       
@@ -582,7 +582,7 @@ SpeTest_Dist<-function(eq,type="icm",norma="no",boot="wild",nboot=50,para=F,
     
     # Obtain a vector of bootstrapped statistics
     
-    v_boot <- function(uhat,x,x_sd,eq,W_mat,hyper,type,norma,cova,boot,nboot,ker,knorm,cch,hv,direct,est,alphan)
+    v_boot <- function(uhat,x,x_sd,eq,W_mat,hyper,type,norma,cova,boot,nboot,ker,knorm,cch,hv,direct,alphan)
     {
       
       n<-dim(x)[1]
@@ -611,7 +611,7 @@ SpeTest_Dist<-function(eq,type="icm",norma="no",boot="wild",nboot=50,para=F,
       b <- sapply(1:nboot, function(e) s_boot(uhat=uhatb,w=w_boot(n),x=x,x_sd=x_sd,fit=fit,
                                               eq=eq,W_mat=W_mat,hyper=hyper,type=type,norma=norma,
                                               cova=cova,ker=ker,knorm=knorm,
-                                              cch=cch,hv=hv,direct=direct,est=est,alphan=alphan))
+                                              cch=cch,hv=hv,direct=direct,alphan=alphan))
       return(b)
       
     }
@@ -690,7 +690,7 @@ SpeTest_Dist<-function(eq,type="icm",norma="no",boot="wild",nboot=50,para=F,
     
     ##### Default preferred alternative is the NLS estimator if type = "pala"
     
-    if (type=="pala" & direct=="default"){
+    if (type=="pala" & prod(direct=="default")){
       if (class(eq)=="lm"){
         if (names(coefficients(eq))[1]!="(Intercept)"){
           direct<-as.numeric(coefficients(eq))
@@ -738,7 +738,7 @@ SpeTest_Dist<-function(eq,type="icm",norma="no",boot="wild",nboot=50,para=F,
       Sboot<-v_boot(uhat=uhat,x=x,x_sd=x_sd,eq=eq,W_mat=W_mat,hyper=hyper,
                     norma=norma,cova=cova,type=type,boot=boot,nboot=nboot,
                     ker=ker,knorm=knorm,cch=cch,hv=hv,
-                    direct=direct,est=est,alphan=alphan)
+                    direct=direct,alphan=alphan)
         
     } else if (para==T){
         
@@ -764,7 +764,7 @@ SpeTest_Dist<-function(eq,type="icm",norma="no",boot="wild",nboot=50,para=F,
       Sboot<-foreach::foreach(is=1:nboot,.combine=c)%dopar%{s_boot(uhat=uhatb,w=w_boot(n),x=x,x_sd=x_sd,fit=fit,
                                                         eq=eq,W_mat=W_mat,hyper=hyper,type=type,norma=norma,
                                                         cova=cova,ker=ker,knorm=knorm,
-                                                        cch=cch,hv=hv,direct=direct,est=est,alphan=alphan)}
+                                                        cch=cch,hv=hv,direct=direct,alphan=alphan)}
       parallel::stopCluster(cluster)
       doParallel::stopImplicitCluster(cluster)
       

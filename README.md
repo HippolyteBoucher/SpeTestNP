@@ -2,12 +2,20 @@
 
 This R package performs nonparametric tests of parametric specifications. Five heteroskedasticity-robust tests are available: Bierens (1982), Zheng (1996), Escanciano (2006), Lavergne and Patilea (2008), and Lavergne and Patilea (2012). Specific bandwidth and kernel methods can be chosen along with many other options. Allows parallel computing to quickly compute p-values based on the bootstrap. 
 
-To install the package from Github the package `devtools` should be installed and the following commands should be run:
+Hippolyte Boucher (Hippolyte.Boucher@outlook.com) is the author of `SpeTestNP` and Pascal Lavergne (lavergnetse@gmail.com) is a contributor. Both Hippolyte Boucher and Pascal Lavergne are maintainers and any question or bug should be reported to one of them.
+
+## Installation
+
+To install `SpeTestNP` from CRAN simply run the following command:
+
+    install.packages("SpeTestNP")
+
+To install `SpeTestNP` from Github the package `devtools` should be installed and the following commands should be run:
 
     library(devtools) 
     install_github("HippolyteBoucher/SpeTestNP")
   
-`SpeTestNP` will soon be available on CRAN. `SpeTestNP` requires the packages `stats`  (already installed and loaded by default in Rstudio), `foreach` and `doParallel` (if parallel computing is used to derive p-values based on the bootstrap) to be installed.
+`SpeTestNP` requires the packages `stats`  (already installed and loaded by default in Rstudio), `foreach` and `doParallel` (if parallel computing is used to derive p-values based on the bootstrap) to be installed.
 
 ## Examples 
 

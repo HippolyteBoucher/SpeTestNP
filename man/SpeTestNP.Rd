@@ -22,7 +22,9 @@ Nonparametric specification test package
 \details{
 The package contains the following functions:
   \itemize{
-  \item \code{\link{SpeTest}} returns an object of class STNP
+  \item \code{\link{SpeTest}} returns a specfication test object of class \code{STNP}
+  \item \code{\link{print.STNP}} a method to print a specification test \code{STNP} object
+  \item \code{\link{summary.STNP}} a method to print a summary of a specification test \code{STNP} object
   \item \code{\link{SpeTest_Stat}} computes the test statistic
   \item \code{\link{SpeTest_Dist}} generates a vector drawn from the distribution of the test statistic under the null hypothesis using the bootstrap
   }

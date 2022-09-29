@@ -6,7 +6,7 @@
 
 
 SpeTest_Stat<-function(eq,type="icm",norma="no",ker="normal",knorm="sd",
-                       hv="default",cch="default",nbeta="default",
+                       cch="default",hv="default",nbeta="default",
                        direct="default",alphan="default"){
   
   if (class(eq)=="lm" || class(eq)=="nls"){
@@ -50,7 +50,7 @@ SpeTest_Stat<-function(eq,type="icm",norma="no",ker="normal",knorm="sd",
       
       if (ker=="sinc") # Sine-cardinal function
       {
-        out <- sqrt(3/2)*sinc(x)^2
+        out <- sqrt(3/2)*(sin(x*pi)/(x*pi))^2
         out <- apply(out, 1, function(x) replace(x,list=which(x=="NaN"),values=1))
       }
       
@@ -454,7 +454,7 @@ SpeTest_Stat<-function(eq,type="icm",norma="no",ker="normal",knorm="sd",
     ### Lavergne and Patilea (2008)
     
     pala<-function(uhat,x,hyper,norma=F,cova="naive",ker,knorm,cch,hv,
-                   direct,est,alphan){
+                   direct,alphan){
       
       n<-dim(x)[1]
       k<-dim(x)[2]
@@ -600,7 +600,7 @@ SpeTest_Stat<-function(eq,type="icm",norma="no",ker="normal",knorm="sd",
     
     ##### Default preferred alternative is the NLS estimator if type = "pala"
     
-    if (type=="pala" & direct=="default"){
+    if (type=="pala" & prod(direct=="default")){
       if (class(eq)=="lm"){
         if (names(coefficients(eq))[1]!="(Intercept)"){
           direct<-as.numeric(coefficients(eq))
@@ -645,7 +645,7 @@ SpeTest_Stat<-function(eq,type="icm",norma="no",ker="normal",knorm="sd",
                     "esca"=esca(uhat=uhat,W_mat=W_mat,norma=norma,cova=cov,ker=ker,knorm=knorm,hv=hv),
                     "pala"=pala(uhat=uhat,x=x_sd,hyper=hyper,norma=norma,cova=cova,
                                 ker=ker,knorm=knorm,cch=cch,hv=hv,
-                                direct=direct,est=est,alphan=alphan),
+                                direct=direct,alphan=alphan),
                     "sicm"=sicm(uhat=uhat,x=x_sd,hyper=hyper,norma=norma,cova=cova,
                                 ker=ker,knorm=knorm,cch=cch,hv=hv))
     

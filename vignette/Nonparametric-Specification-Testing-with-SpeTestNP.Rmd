@@ -11,8 +11,10 @@ output:
   html_document:
     toc: yes
     df_print: paged
-vignette: |
-  %\VignetteIndexEntry{Vignette Title}  %\VignetteEncoding{UTF-8}  %\VignetteEngine{knitr::rmarkdown}
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
@@ -23,7 +25,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 In applied work in order to evaluate the effect of a set of exogenous variables on an outcome it is very common to estimate a parametric model such as the linear model with ordinary least squares (OLS). But such parametric specifications may not capture the true relationship between outcome and exogenous variables. In fact if the chosen parametric model is a bad approximation of the true model then counterfactual analysis will be flawed. For this reason in the past forty years a literature on specification tests has developed in order to know if a parametric specification is right or wrong. `SpeTestNP` is a package which implements heteroskedasticity-robust specification tests of parametric models from Bierens (1982), Zheng (1996), Escanciano (2006), Lavergne and Patilea (2008), and Lavergne and Patilea (2012).
 
-The author, creator and maintainer of `SpeTestNP` is Hipppolyte Boucher and Pascal Lavergne is a contributor. This vignette describes the principle behind each test available in `SpeTestNP`, then how to use `SpeTestNP` to test a parametric specification in practice with an application to the wage returns on education and age.
+Hippolyte Boucher (Hippolyte.Boucher@outlook.com) is the author of `SpeTestNP` and Pascal Lavergne (lavergnetse@gmail.com) is a contributor. Both Hippolyte Boucher and Pascal Lavergne are maintainers and any question or bug should be reported to one of them. This vignette describes the principle behind each test available in `SpeTestNP`, then how to use `SpeTestNP` to test a parametric specification in practice with an application to the wage returns on education and age.
 
 # Testing for a parametric specification
 
@@ -195,7 +197,14 @@ Previously we have described the principle behind the five nonparametric specifi
 
 ## Installation
 
-`SpeTestNP` can be downloaded and installed using the package `devtools` by running the following lines of code:
+To install `SpeTestNP` from CRAN simply run the following command:
+
+```{r eval = F}
+install.packages("SpeTestNP")
+
+```
+
+To install `SpeTestNP` from Github the package `devtools` should be installed and the following commands should be run:
 
 ```{r eval = F}
 install.packages("devtools")
@@ -206,7 +215,7 @@ install_github("HippolyteBoucher/SpeTestNP")
 
 ```
 
-To choose where and how the package is installed check `help(install_github)` and `help(install.packages)`. Alternatively users can download the package and directly install it with the CMD. `SpeTestNP` will soon be available on CRAN. `SpeTestNP` requires the packages `stats` (already installed and loaded by default in Rstudio), `foreach`, `parallel` and `doParallel` (if parallel computing is used to generate the vector) to be installed.
+To choose where and how the package is installed check `help(install_github)` and `help(install.packages)`. Alternatively users can download the package and directly install it with the CMD. `SpeTestNP` requires the packages `stats` (already installed and loaded by default in Rstudio), `foreach`, `parallel` and `doParallel` (if parallel computing is used to generate the vector) to be installed.
 
 ## Testing with `SpeTestNP`
 

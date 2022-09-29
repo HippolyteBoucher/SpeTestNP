@@ -23,7 +23,7 @@ Nonparametric specification test statistic
 
 \usage{
 SpeTest_Stat(eq, type="icm", norma="no", ker="normal", knorm="sd",
-hv="default", cch="default", nbeta="default", direct="default", 
+cch="default", hv="default", nbeta="default", direct="default", 
 alphan="default")
 }
 
@@ -119,6 +119,12 @@ The statistic can be normalized with a naive estimator of the conditional covari
 \code{SpeTest_Stat} returns the nonparametric specification test statistic
 }
 
+\seealso{
+\code{\link{SpeTest}} is the function which performs a specification test and records it along with all its options in an object of class \code{STNP}
+
+\code{\link{SpeTest_Dist}} generates a vector drawn from the distribution of the test statistic under the null hypothesis using the bootstrap
+}
+
 \note{
 The data used to obtain the fitted model \code{eq} should not contain factors, factor variables should be transformed into dummy variables a priori
 
@@ -129,7 +135,6 @@ For more information and to be able to use the package to its full potential see
 
 
 \examples{
-\code{
 n <- 100
 k <- 2
 x <- matrix(rnorm(n*k),ncol=k)
@@ -139,11 +144,11 @@ eq<-lm(y~x+0)
 
 SpeTest_Stat(eq=eq,type="icm",norma="np")
 
-eq<-nls(out~expla1*a+b*expla2+c,start=(a=0,b=4,c=2),data=data.frame(out=y,expla1=x[,1],expla2=x[,2]))
+eq<-nls(out~expla1*a+b*expla2+c,start=list(a=0,b=4,c=2),
+data=data.frame(out=y,expla1=x[,1],expla2=x[,2]))
 
 SpeTest_Stat(eq=eq,type="icm",norma="np")
 
-}
 }
 
 

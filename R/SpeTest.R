@@ -7,7 +7,7 @@
 
 SpeTest<-function(eq,type="icm",rejection="bootstrap",norma="no",
                   boot="wild",nboot=50,para=F,ker="normal",knorm="sd",
-                  hv="default",cch="default",nbeta="default",
+                  cch="default",hv="default",nbeta="default",
                   direct="default",alphan="default"){
   
   if (class(eq)=="lm" || class(eq)=="nls"){
@@ -51,7 +51,7 @@ SpeTest<-function(eq,type="icm",rejection="bootstrap",norma="no",
       
       if (ker=="sinc") # Sine-cardinal function
       {
-        out <- sqrt(3/2)*sinc(x)^2
+        out <- sqrt(3/2)*(sin(x*pi)/(x*pi))^2
         out <- apply(out, 1, function(x) replace(x,list=which(x=="NaN"),values=1))
       }
       
@@ -455,7 +455,7 @@ SpeTest<-function(eq,type="icm",rejection="bootstrap",norma="no",
     ### Lavergne and Patilea (2008)
     
     pala<-function(uhat,x,hyper,norma=F,cova="naive",ker,knorm,cch,hv,
-                   direct,est,alphan){
+                   direct,alphan){
       
       n<-dim(x)[1]
       k<-dim(x)[2]
@@ -549,7 +549,7 @@ SpeTest<-function(eq,type="icm",rejection="bootstrap",norma="no",
     
     # Compute one bootstrap statistics
     
-    s_boot <- function(uhat,w,x,x_sd,fit,eq,W_mat,hyper,type,norma,cova,ker,knorm,cch,hv,direct,est,alphan){
+    s_boot <- function(uhat,w,x,x_sd,fit,eq,W_mat,hyper,type,norma,cova,ker,knorm,cch,hv,direct,alphan){
       
       # Create a vector of simulated outcomes
       
@@ -575,7 +575,7 @@ SpeTest<-function(eq,type="icm",rejection="bootstrap",norma="no",
                     "zheng"=zheng(uhat=uhatb,x=x_sd,norma=norma,cova=cova,ker=ker,knorm=knorm,cch=cch,hv=hv),
                     "esca"=esca(uhat=uhatb,W_mat=W_mat,norma=norma,cova=cova,ker=ker,knorm=knorm,hv=hv),
                     "pala"=pala(uhat=uhatb,x=x_sd,hyper=hyper,norma=norma,cova=cova,ker=ker,
-                                knorm=knorm,cch=cch,hv=hv,direct=direct,est=est,alphan=alphan),
+                                knorm=knorm,cch=cch,hv=hv,direct=direct,alphan=alphan),
                     "sicm"=sicm(uhat=uhatb,x=x_sd,hyper=hyper,norma=norma,cova=cova,ker=ker,
                                 knorm=knorm,cch=cch,hv=hv)))
       
@@ -583,7 +583,7 @@ SpeTest<-function(eq,type="icm",rejection="bootstrap",norma="no",
     
     # Obtain a vector of bootstrapped statistics
     
-    v_boot <- function(uhat,x,x_sd,eq,W_mat,hyper,type,norma,cova,boot,nboot,ker,knorm,cch,hv,direct,est,alphan)
+    v_boot <- function(uhat,x,x_sd,eq,W_mat,hyper,type,norma,cova,boot,nboot,ker,knorm,cch,hv,direct,alphan)
     {
       
       n<-dim(x)[1]
@@ -612,7 +612,7 @@ SpeTest<-function(eq,type="icm",rejection="bootstrap",norma="no",
       b <- sapply(1:nboot, function(e) s_boot(uhat=uhatb,w=w_boot(n),x=x,x_sd=x_sd,fit=fit,
                                               eq=eq,W_mat=W_mat,hyper=hyper,type=type,norma=norma,
                                               cova=cova,ker=ker,knorm=knorm,
-                                              cch=cch,hv=hv,direct=direct,est=est,alphan=alphan))
+                                              cch=cch,hv=hv,direct=direct,alphan=alphan))
       return(b)
       
     }
@@ -691,7 +691,7 @@ SpeTest<-function(eq,type="icm",rejection="bootstrap",norma="no",
     
     ##### Default preferred alternative is the NLS estimator if type = "pala"
     
-    if (type=="pala" & direct=="default"){
+    if (type=="pala" & prod(direct=="default")){
       if (class(eq)=="lm"){
         if (names(coefficients(eq))[1]!="(Intercept)"){
           direct<-as.numeric(coefficients(eq))
@@ -754,7 +754,7 @@ SpeTest<-function(eq,type="icm",rejection="bootstrap",norma="no",
                                   cch=cch,hv=hv),
                     "esca"=esca(uhat=uhat,W_mat=W_mat,norma=norma,cova=cov,ker=ker,knorm=knorm,hv=hv),
                     "pala"=pala(uhat=uhat,x=x_sd,hyper=hyper,norma=norma,cova=cova,ker=ker,knorm=knorm,cch=cch,
-                                hv=hv,direct=direct,est=est,
+                                hv=hv,direct=direct,
                                 alphan=alphan),
                     "sicm"=sicm(uhat=uhat,x=x_sd,hyper=hyper,norma=norma,cova=cova,ker=ker,knorm=knorm,cch=cch,
                                 hv=hv))
@@ -771,7 +771,7 @@ SpeTest<-function(eq,type="icm",rejection="bootstrap",norma="no",
         Sboot<-v_boot(uhat=uhat,x=x,x_sd=x_sd,eq=eq,W_mat=W_mat,hyper=hyper,
                       norma=norma,cova=cova,type=type,boot=boot,nboot=nboot,
                       ker=ker,knorm=knorm,cch=cch,hv=hv,
-                      direct=direct,est=est,alphan=alphan)
+                      direct=direct,alphan=alphan)
         
       } else if (para==T){
         
@@ -797,7 +797,7 @@ SpeTest<-function(eq,type="icm",rejection="bootstrap",norma="no",
         Sboot<-foreach::foreach(is=1:nboot,.combine=c)%dopar%{s_boot(uhat=uhatb,w=w_boot(n),x=x,x_sd=x_sd,fit=fit,
                                                           eq=eq,W_mat=W_mat,hyper=hyper,type=type,norma=norma,
                                                           cova=cova,ker=ker,knorm=knorm,
-                                                          cch=cch,hv=hv,direct=direct,est=est,alphan=alphan)}
+                                                          cch=cch,hv=hv,direct=direct,alphan=alphan)}
         parallel::stopCluster(cluster)
         doParallel::stopImplicitCluster(cluster)
       }
@@ -836,7 +836,7 @@ SpeTest<-function(eq,type="icm",rejection="bootstrap",norma="no",
 
 ##### Print function
 
-print.STNP<-function(x){
+print.STNP<-function(x, ...){
   
   name<-switch(x$type,"icm"="Bierens (1982) integrated conditional moment test","zheng"="Zheng (1996) test",
                "esca"="Escanciano (2006) test","pala"="Lavergne and Patilea (2008) test",
@@ -866,33 +866,33 @@ print.STNP<-function(x){
 
 ##### Summary function
 
-summary.STNP<-function(x){
+summary.STNP<-function(object, ...){
   
-  name<-switch(x$type,"icm"="Bierens (1982) integrated conditional moment test","zheng"="Zheng (1996) test",
+  name<-switch(object$type,"icm"="Bierens (1982) integrated conditional moment test","zheng"="Zheng (1996) test",
                "esca"="Escanciano (2006) test","pala"="Lavergne and Patilea (2008) test",
                "sicm"="Lavergne and Patilea (2012) smooth integrated conditional moment test")
   
   cat("\n ", name)
   
-  if (x$norma==F){
+  if (object$norma==F){
     
-    statf <- c("Test statistic : ",round(x$stat,digits=5))
+    statf <- c("Test statistic : ",round(object$stat,digits=5))
     
     cat("\n\n ", statf)
     
-  } else if (x$norma==T){
+  } else if (object$norma==T){
     
-    statf <- c("Normalized test statistic : ",round(x$stat,digits=5))
+    statf <- c("Normalized test statistic : ",round(object$stat,digits=5))
     cat("\n\n ", statf)
     
-    if (x$norma==T){
+    if (object$norma==T){
       
-      if (x$cova=="np"){
+      if (object$cova=="np"){
         
-        hvp<-c("Nonparametric conditional variance estimator bandwidth : ",round(x$hv,digits=5))
+        hvp<-c("Nonparametric conditional variance estimator bandwidth : ",round(object$hv,digits=5))
         cat("\n ","Conditional variance estimator for normalization : Nonparametric","\n ",hvp)
         
-      } else if (x$cova=="naive") {
+      } else if (object$cova=="naive") {
         
         cat("\n ","Conditional variance estimator for normalization : Naive")
         
@@ -902,74 +902,74 @@ summary.STNP<-function(x){
     
   }
   
-  if (x$rejection=="asymptotics"){
+  if (object$rejection=="asymptotics"){
     
-    pvalf<-c("Asymptotic p-value : ",round(x$pval,digits=5))
+    pvalf<-c("Asymptotic p-value : ",round(object$pval,digits=5))
     
-  } else if (x$rejection=="bootstrap"){
+  } else if (object$rejection=="bootstrap"){
     
-    pvalf<-c("Bootstrap p-value : ",round(x$pval,digits=5))
+    pvalf<-c("Bootstrap p-value : ",round(object$pval,digits=5))
     
   }
   
   cat("\n\n ",pvalf)
   
-  if (x$rejection=="bootstrap"){
+  if (object$rejection=="bootstrap"){
     
-    bootp<-switch(x$boot,"wild"="Bootstrap type :  Wild bootstrap","smooth"="Bootstrap type :  Smooth conditional moments bootstrap")
-    nbootp<-c("Number of bootstrap samples : ",x$nboot)
+    bootp<-switch(object$boot,"wild"="Bootstrap type :  Wild bootstrap","smooth"="Bootstrap type :  Smooth conditional moments bootstrap")
+    nbootp<-c("Number of bootstrap samples : ",object$nboot)
     cat("\n ",bootp,"\n ",nbootp)
     
-    if (x$boot=="smooth"){
+    if (object$boot=="smooth"){
       
-      hvpp<-c("Bootstrap conditional variance estimator bandwidth : ",round(x$hv,digits=5))
+      hvpp<-c("Bootstrap conditional variance estimator bandwidth : ",round(object$hv,digits=5))
       cat("\n ",hvpp)
       
     }
     
   }
   
-  kerp<-switch(x$ker,"normal"="Central matrix kernel function :  Normal p.d.f",
+  kerp<-switch(object$ker,"normal"="Central matrix kernel function :  Normal p.d.f",
                "triangle"="Central matrix kernel function :  Triangular p.d.f",
                "logistic"="Central matrix kernel function :  Logistic p.d.f",
                "sinc"="Central matrix kernel function :  Sine Cardinal function")
   
-  knormp<-switch(x$knorm,"sd"="Kernel standardization :  Standard deviation using the Kernel as a density = 1",
+  knormp<-switch(object$knorm,"sd"="Kernel standardization :  Standard deviation using the Kernel as a density = 1",
                  "sq"="Kernel standardization :  Integral of squared Kernel function = 1")
   
   cat("\n\n ", kerp, "\n ", knormp)
   
-  if (x$type!= "esca" & x$type!= "icm"){
+  if (object$type!= "esca" & object$type!= "icm"){
     
-    cchp<-c("Kernel bandwidth : ",round(x$cch,digits=5))
+    cchp<-c("Kernel bandwidth : ",round(object$cch,digits=5))
     cat("\n ",cchp)
     
   }
   
-  if (x$type=="pala" || x$type=="sicm"){
+  if (object$type=="pala" || object$type=="sicm"){
     
-    nbetap<-c("Number of directions in the unit hypersphere : ", x$nbeta)
+    nbetap<-c("Number of directions in the unit hypersphere : ", object$nbeta)
     cat("\n\n ",nbetap)
     
   }
   
-  if (x$type=="pala"){
+  if (object$type=="pala"){
     
-    directp<-c("Initial direction for beta = ",x$direct)
+    directp<-c("Initial direction for beta = ",object$direct)
     cat("\n ",directp)
     
   }
   
-  if (x$type=="pala"){
+  if (object$type=="pala"){
     
-    alphanp<-c("Weight given to the favored alternative : ",x$alphan)
+    alphanp<-c("Weight given to the favored alternative : ",object$alphan)
     cat("\n ",alphanp)
     
   }
   
-  if (x$type=="sicm" & sum(x$direct!=0)>0){
+  if (object$type=="sicm" & sum(object$direct!=0)>0){
     
-    directp<-c("Initial direction for beta : ",round(x$direct,digits=5))
+    directp<-c("Initial direction for beta : ",round(object$direct,digits=5))
     cat("\n ",directp)
     
   }
