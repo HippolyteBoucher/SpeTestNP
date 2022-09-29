@@ -1,5 +1,8 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE$
+^\.gitignore$
+^\.Rhistory$
+^\.git$
 ^vignette$
 ^README\.md$

@@ -6,7 +6,7 @@ Date: 2022-09-20
 Depends:
   stats, foreach, parallel, doParallel
 Suggests:
-  knitr, rmarkdown
+  knitr, rmarkdown, AER
 Author:
   Hippolyte Boucher [aut, cre],
   Pascal Lavergne [ctb]
@@ -24,5 +24,3 @@ VignetteBuilder: knitr
 License: GPL-2
 NeedsCompilation: yes
 Encoding: UTF-8
-URL: 
-LazyData: true

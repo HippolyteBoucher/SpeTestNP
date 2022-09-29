@@ -9,7 +9,7 @@ SpeTest_Stat<-function(eq,type="icm",norma="no",ker="normal",knorm="sd",
                        cch="default",hv="default",nbeta="default",
                        direct="default",alphan="default"){
   
-  if (class(eq)=="lm" || class(eq)=="nls"){
+  if (inherits(eq,"lm") || inherits(eq,"nls")){
     
     
     ############################################################################
@@ -531,12 +531,12 @@ SpeTest_Stat<-function(eq,type="icm",norma="no",ker="normal",knorm="sd",
     #####################################################################
     ######################## Preliminary preparation ####################
     
-    if (class(eq)=="lm"){
+    if (inherits(eq,"lm")){
       
       x<-as.matrix(eq$model[,-1])
       uhat<-as.numeric(eq$residuals)
       
-    } else if (class(eq)=="nls"){
+    } else if (inherits(eq,"nls")){
       
       all_names<-names(eq$m$getEnv())
       para_names<-names(eq$m$getAllPars())
@@ -601,13 +601,13 @@ SpeTest_Stat<-function(eq,type="icm",norma="no",ker="normal",knorm="sd",
     ##### Default preferred alternative is the NLS estimator if type = "pala"
     
     if (type=="pala" & prod(direct=="default")){
-      if (class(eq)=="lm"){
+      if (inherits(eq,"lm")){
         if (names(coefficients(eq))[1]!="(Intercept)"){
           direct<-as.numeric(coefficients(eq))
         } else {
           direct<-as.numeric(coefficients(eq))[-1]
         }
-      } else if (class(eq)=="nls") {
+      } else if (inherits(eq,"nls")) {
         direct<-rep(0,k)
       }
     }

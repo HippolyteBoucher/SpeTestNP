@@ -9,7 +9,7 @@ SpeTest_Dist<-function(eq,type="icm",norma="no",boot="wild",nboot=50,para=F,
                        ker="normal",knorm="sd",cch="default",hv="default",
                        nbeta="default",direct="default",alphan="default"){
   
-  if (class(eq)=="lm" || class(eq)=="nls"){
+  if (inherits(eq,"lm") || inherits(eq,"nls")){
     
     
     ############################################################################
@@ -556,11 +556,11 @@ SpeTest_Dist<-function(eq,type="icm",norma="no",boot="wild",nboot=50,para=F,
       
       # Compute residuals for the new simulated outcomes
       
-      if (class(eq)=="lm"){
+      if (inherits(eq,"lm")){
         
         uhatb <- lm(ynew~x)$residuals
         
-      } else if (class(eq)=="nls"){
+      } else if (inherits(eq,"nls")){
         
         df<-x
         df[[as.character(eq$m$formula())[2]]]<-ynew
@@ -588,9 +588,9 @@ SpeTest_Dist<-function(eq,type="icm",norma="no",boot="wild",nboot=50,para=F,
       n<-dim(x)[1]
       k<-dim(x)[2]
       
-      if (class(eq)=="lm"){
+      if (inherits(eq,"lm")){
         fit<-eq$fitted.values
-      } else if (class(eq)=="nls"){
+      } else if (inherits(eq,"nls")){
         fit<-as.numeric(fitted(eq))
       }
       
@@ -621,12 +621,12 @@ SpeTest_Dist<-function(eq,type="icm",norma="no",boot="wild",nboot=50,para=F,
     #####################################################################
     ######################## Preliminary preparation ####################
     
-    if (class(eq)=="lm"){
+    if (inherits(eq,"lm")){
       
       x<-as.matrix(eq$model[,-1])
       uhat<-as.numeric(eq$residuals)
       
-    } else if (class(eq)=="nls"){
+    } else if (inherits(eq,"nls")){
       
       all_names<-names(eq$m$getEnv())
       para_names<-names(eq$m$getAllPars())
@@ -691,13 +691,13 @@ SpeTest_Dist<-function(eq,type="icm",norma="no",boot="wild",nboot=50,para=F,
     ##### Default preferred alternative is the NLS estimator if type = "pala"
     
     if (type=="pala" & prod(direct=="default")){
-      if (class(eq)=="lm"){
+      if (inherits(eq,"lm")){
         if (names(coefficients(eq))[1]!="(Intercept)"){
           direct<-as.numeric(coefficients(eq))
         } else {
           direct<-as.numeric(coefficients(eq))[-1]
         }
-      } else if (class(eq)=="nls") {
+      } else if (inherits(eq,"nls")) {
         direct<-rep(0,k)
       }
     }
@@ -728,7 +728,7 @@ SpeTest_Dist<-function(eq,type="icm",norma="no",boot="wild",nboot=50,para=F,
       alphan<-log(n)*n^(-3/2)
     }
     
-    if (class(eq)=="nls"){
+    if (inherits(eq,"nls")){
       x<-data.frame(x)
       names(x)<-x_names
     }
@@ -742,9 +742,9 @@ SpeTest_Dist<-function(eq,type="icm",norma="no",boot="wild",nboot=50,para=F,
         
     } else if (para==T){
         
-      if (class(eq)=="lm"){
+      if (inherits(eq,"lm")){
         fit<-eq$fitted.values
-      } else if (class(eq)=="nls"){
+      } else if (inherits(eq,"nls")){
         fit<-as.numeric(fitted(eq))
       }
         

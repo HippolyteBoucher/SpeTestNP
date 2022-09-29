@@ -12,7 +12,7 @@ output:
     toc: yes
     df_print: paged
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Nonparametric Specification Testing with SpeTestNP}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
