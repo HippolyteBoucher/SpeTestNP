@@ -2388,7 +2388,7 @@ age only:</p>
 ##   Bierens (1982) integrated conditional moment test 
 ## 
 ##   Test statistic :  1.1218 
-##   Bootstrap p-value :  0.76 
+##   Bootstrap p-value :  0.7 
 ## </code></pre>
 <p>Clearly the quadratic specification of the expectation conditional on
 age is not rejected, the p-value is above 50%. Conditional on education
@@ -2440,14 +2440,14 @@ only:</p>
 ##   Bierens (1982) integrated conditional moment test 
 ## 
 ##   Test statistic :  41.9029 
-##   Bootstrap p-value :  0.02 
+##   Bootstrap p-value :  0 
 ## </code></pre>
 <pre class="r"><code>    SpeTest( lm_educ2, para = T )</code></pre>
 <pre><code>## 
 ##   Bierens (1982) integrated conditional moment test 
 ## 
 ##   Test statistic :  0.66312 
-##   Bootstrap p-value :  0.94 
+##   Bootstrap p-value :  0.86 
 ## </code></pre>
 <p>Similarly the quadratic specification of the expectation conditional
 on education is not rejected.</p>
@@ -2518,7 +2518,7 @@ age, education, and their square included as control variables:</p>
 ##   Bierens (1982) integrated conditional moment test 
 ## 
 ##   Test statistic :  2.62128 
-##   Bootstrap p-value :  0.02 
+##   Bootstrap p-value :  0 
 ## </code></pre>
 <p>We reject these two specifications because the p-value is equal to 0.
 They do not approximate properly the conditional expectation with
@@ -2536,7 +2536,7 @@ as controls:</p>
 ##   Bierens (1982) integrated conditional moment test 
 ## 
 ##   Test statistic :  0.0184 
-##   Bootstrap p-value :  0.88 
+##   Bootstrap p-value :  0.96 
 ## </code></pre>
 <p>And we do not reject this specification because the p-value is above
 50%. This means that the expectation of earnings conditional on age and

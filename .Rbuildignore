@@ -1,8 +1,9 @@
 ^.*\.Rproj$
-^\.Rproj\.user$
+^\.Rproj\.Hippo$
 ^LICENSE$
 ^\.gitignore$
 ^\.Rhistory$
 ^\.git$
 ^vignette$
 ^README\.md$
+^\.Rproj\.user$

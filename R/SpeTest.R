@@ -799,7 +799,6 @@ SpeTest<-function(eq,type="icm",rejection="bootstrap",norma="no",
                                                           cova=cova,ker=ker,knorm=knorm,
                                                           cch=cch,hv=hv,direct=direct,alphan=alphan)}
         parallel::stopCluster(cluster)
-        doParallel::stopImplicitCluster(cluster)
       }
       
       PPval <- mean(Sboot>SStat)

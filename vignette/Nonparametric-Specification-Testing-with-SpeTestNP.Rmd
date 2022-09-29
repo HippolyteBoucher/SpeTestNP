@@ -3,18 +3,18 @@ title: "Nonparametric Specification Testing with SpeTestNP"
 author: "Hippolyte Boucher"
 date: "`r Sys.Date()`"
 output:
-  pdf_document:
-    toc: yes
-    number_sections: yes
-  rmarkdown::html_vignette:
-    toc: yes
   html_document:
     toc: yes
     df_print: paged
+  rmarkdown::html_vignette:
+    toc: yes
+  pdf_document:
+    toc: yes
+    number_sections: yes
 vignette: >
   %\VignetteIndexEntry{Nonparametric Specification Testing with SpeTestNP}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
 ---
 
 ```{r setup, include=FALSE}

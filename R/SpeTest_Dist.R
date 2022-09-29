@@ -766,7 +766,6 @@ SpeTest_Dist<-function(eq,type="icm",norma="no",boot="wild",nboot=50,para=F,
                                                         cova=cova,ker=ker,knorm=knorm,
                                                         cch=cch,hv=hv,direct=direct,alphan=alphan)}
       parallel::stopCluster(cluster)
-      doParallel::stopImplicitCluster(cluster)
       
     }
     
