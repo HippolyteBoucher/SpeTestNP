@@ -124,7 +124,7 @@ If \code{norma = "np"} or \code{rejection = "bootstrap"} and \code{boot = "smoot
   
   If \code{type = "sicm"}, \code{direct} is the initial direction for beta. This direction should be a vector of \code{0} (for no direction), \code{1} (for positive direction) and \code{-1} (for negative direction)
 
-  For ex, \code{c(1,-1,0)} indicates that the user thinks that the 1st regressor has a positive effect on the dependent variable, that the 2nd regressor has a negative effect on the dependent variable, and that he has no idea about the effect of the 3rd regressor
+  For ex, \code{c(1,-1,0)} indicates that the user thinks that the first regressor has a positive effect on the dependent variable, that the second regressor has a negative effect on the dependent variable, and that he has no idea about the effect of the third regressor
   
   By \code{"default"} no direction is given to the hypersphere
 }
@@ -136,7 +136,7 @@ If \code{norma = "np"} or \code{rejection = "bootstrap"} and \code{boot = "smoot
 
 \details{
 To perform a nonparametric specification test the only argument needed is a model \code{eq} of class \code{lm} or of class \code{nls}.
-But other options can and should be specified: the test type \code{type}, the rejection rule \code{rejection}, the normalization of the test statistic \code{norm}, the bootstrap type \code{boot} and the size of the vector being generated which is equal to the number of bootstrap samples \code{nboot}, whether the vector is generated using parallel computing \code{para}, the central matrix kernel function \code{ker} and its standardization \code{ker}, the bandwidths \code{cch} and \code{hv}. If the user has knowledge of the tests coined by Lavergne and Patilea he may choose a higher number of betas for the hypersphere (which may significantely increase computational time) and an initial "direction" to the hypersphere for the SICM test (none is given by \code{"default"}) or a starting beta for the PALA test (which is the OLS estimator by \code{"default"} if \code{class(eq) = "nls"}).
+But other options can and should be specified: the test type \code{type}, the rejection rule \code{rejection}, the normalization of the test statistic \code{norm}, the bootstrap type \code{boot} and the size of the vector being generated which is equal to the number of bootstrap samples \code{nboot}, whether the vector is generated using parallel computing \code{para}, the central matrix kernel function \code{ker} and its standardization \code{ker}, the bandwidths \code{cch} and \code{hv}. If the user has knowledge of the tests coined by Lavergne and Patilea he may choose a higher number of betas for the hypersphere (which may significantly increase computational time) and an initial "direction" to the hypersphere for the SICM test (none is given by \code{"default"}) or a starting beta for the PALA test (which is the OLS estimator by \code{"default"} if \code{class(eq) = "nls"}).
 
 The statistic can be normalized with a naive estimator of the conditional covariance of its elements as in Zheng (1996), or with a nonparametric estimator of the conditional covariance of its elements as in in Yin, Geng, Li, Wang (2010). The p-value is based either on the wild bootstrap of Wu (1986) or on the smooth conditional moments bootstrap of Gozalo (1997).
 }
@@ -155,7 +155,7 @@ An object of class \code{STNP} is a list which contains the following elements:
 \item{boot}{The type of bootstrap which was used to compute the p-value}
 \item{nboot}{The number of bootstrap samples used to compute the p-value}
 \item{ker}{The central matrix kernel function which was used}
-\item{knorm}{The kernel matrix standardisation: \code{"sq"} if the second moment equals
+\item{knorm}{The kernel matrix standardization: \code{"sq"} if the second moment equals
 1 or \code{"sd"} if the standard deviation equals 1
 }
 \item{cch}{The central matrix kernel function bandwidth}

@@ -22,7 +22,7 @@ This package performs nonparametric tests of parametric specifications. Five het
 \details{
 The package contains the following functions:
   \itemize{
-  \item \code{\link{SpeTest}} returns a specfication test object of class \code{STNP}
+  \item \code{\link{SpeTest}} returns a specification test object of class \code{STNP}
   \item \code{\link{print.STNP}} a method to print a specification test \code{STNP} object
   \item \code{\link{summary.STNP}} a method to print a summary of a specification test \code{STNP} object
   \item \code{\link{SpeTest_Stat}} computes the test statistic

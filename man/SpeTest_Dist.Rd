@@ -114,7 +114,7 @@ If \code{norma = "np"} or \code{rejection = "bootstrap"} and \code{boot = "smoot
   
   If \code{type = "sicm"}, \code{direct} is the initial direction for beta. This direction should be a vector of \code{0} (for no direction), \code{1} (for positive direction) and \code{-1} (for negative direction)
 
-  For ex, \code{c(1,-1,0)} indicates that the user thinks that the 1st regressor has a positive effect on the dependent variable, that the 2nd regressor has a negative effect on the dependent variable, and that he has no idea about the effect of the 3rd regressor
+  For ex, \code{c(1,-1,0)} indicates that the user thinks that the first regressor has a positive effect on the dependent variable, that the second regressor has a negative effect on the dependent variable, and that he has no idea about the effect of the third regressor
   
   By \code{"default"} no direction is given to the hypersphere
 }
@@ -126,7 +126,7 @@ If \code{norma = "np"} or \code{rejection = "bootstrap"} and \code{boot = "smoot
 
 \details{
 To generate a vector from the specification test statistic distribution under the null using the bootstrap the only argument needed is a model \code{eq} of class \code{lm} or of class \code{nls}.
-But other options can and should be specified: the test statistic type \code{type}, the normalization of the test statistic \code{norma}, the bootstrap type \code{boot} and the size of the vector being generated which is equal to the number of bootstrap samples \code{nboot}, whether the vector is generated using parallel computing \code{para}, the central matrix kernel function \code{ker} and its standardization \code{knorm}, the bandwidths \code{cch} and \code{hv}. If the user has knowledge of the tests coined by Lavergne and Patilea he may choose a higher number of betas for the hypersphere (which may significantely increase computational time) and an initial "direction" to the hypersphere for the SICM test (none is given by \code{"default"}) or a starting beta for the PALA test (which is the OLS estimator by \code{"default"} if \code{class(eq) = "nls"}).
+But other options can and should be specified: the test statistic type \code{type}, the normalization of the test statistic \code{norma}, the bootstrap type \code{boot} and the size of the vector being generated which is equal to the number of bootstrap samples \code{nboot}, whether the vector is generated using parallel computing \code{para}, the central matrix kernel function \code{ker} and its standardization \code{knorm}, the bandwidths \code{cch} and \code{hv}. If the user has knowledge of the tests coined by Lavergne and Patilea he may choose a higher number of betas for the hypersphere (which may significantly increase computational time) and an initial "direction" to the hypersphere for the SICM test (none is given by \code{"default"}) or a starting beta for the PALA test (which is the OLS estimator by \code{"default"} if \code{class(eq) = "nls"}).
 
 The statistic can be normalized with a naive estimator of the conditional covariance of its elements as in Zheng (1996), or with a nonparametric estimator of the conditional covariance of its elements as in in Yin, Geng, Li, Wang (2010). The vector is generated either from the wild bootstrap of Wu (1986) or from the smooth conditional moments bootstrap of Gozalo (1997).
 }

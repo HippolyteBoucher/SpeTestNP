@@ -1,20 +1,15 @@
 ---
 title: "Nonparametric Specification Testing with SpeTestNP"
 author: "Hippolyte Boucher"
-date: "`r Sys.Date()`"
+date: "2022-09-30"
 output:
-  html_document:
-    toc: yes
-    df_print: paged
-  rmarkdown::html_vignette:
-    toc: yes
   pdf_document:
     toc: yes
     number_sections: yes
 vignette: >
-  %\VignetteIndexEntry{Nonparametric Specification Testing with SpeTestNP}
-  %\VignetteEncoding{UTF-8}
+  %\VignetteIndexEntry{"Nonparametric Specification Testing with SpeTestNP"}
   %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
@@ -84,7 +79,7 @@ Escanciano (2006) proves the equivalence between the null hypothesis, an infinit
 
 $$H_0:\mathbb{E}(u_j|x_j)=0 \quad a.s \ \Leftrightarrow\mathbb{E}(u_j1\{\beta'x_j\leqslant l\})=0 \ \ \forall(t,l)\in\mathbb{S}^{k}\times \mathbb{R}\\ \Leftrightarrow \int_{\mathbb{S}^k\times\mathbb{R}}\mathbb{E}^2(u_j1\{\beta'x_j\leqslant l\})f_\beta(u)d\beta dl=0$$
 
-where $1\{\cdot\}$ denotes the indicator function, $\mathbb{S}^{k}=\{t\in\mathbb{R}^k:|t|=1\}$ denotes the unit sphere, and $f_\beta(\cdot)$ denotes the probability density function of $\beta'x_j$.
+where $1\{\cdot\}$ denotes the indicator function, $\mathbb{S}^{k}=\{\beta\in\mathbb{R}^k:|\beta|=1\}$ denotes the unit sphere, and $f_\beta(\cdot)$ denotes the probability density function of $\beta'x_j$.
 
 ### Lavergne and Patilea (2008)
 
@@ -347,12 +342,16 @@ To finish we use data on 2,000 individuals from the Current Population Survey as
 
 
 ```{r}
+
     library(SpeTestNP)
     library(AER)
 
+    ### Loading the data and taking a first look
+
     data( CPSSW8 )
     
-    summary( CPSSW8 )
+    summary ( CPSSW8 )
+    
 ```
 
 The dependent variable we consider is earnings and the explanatory variables we focus on are education and age.
@@ -363,13 +362,20 @@ First we consider the specification of the conditional expectation of earnings g
     
 ```{r}
     
+    ### Linear specification
+    
     lm_age <- lm( earnings ~ age, data = CPSSW8[1:2000,] )
-    summary( lm_age ) 
+
+    summary( lm_age )
+
+    SpeTest( lm_age, para = T )
+
+    ### Quadratic specification
     
     lm_age2 <- lm( earnings ~ age + I(age^2), data = CPSSW8[1:2000,] )
+    
     summary( lm_age2 )
     
-    SpeTest( lm_age, para = T )
     SpeTest( lm_age2, para = T )
     
 ```
@@ -378,13 +384,20 @@ Clearly the quadratic specification of the expectation conditional on age is not
 
 ```{r}
 
-    lm_educ <- lm(earnings ~ education, data = CPSSW8[1:2000,] )
-    summary(lm_educ)
+    ### Linear specification
     
-    lm_educ2 <- lm(earnings ~ education + I(education^2), data = CPSSW8[1:2000,] )
-    summary(lm_educ2)
-    
+    lm_educ <- lm( earnings ~ education, data = CPSSW8[1:2000,] )
+
+    summary( lm_educ )
+
     SpeTest( lm_educ, para = T )
+    
+    ### Quadratic specification
+    
+    lm_educ2 <- lm( earnings ~ education + I(education^2), data = CPSSW8[1:2000,] )
+    
+    summary( lm_educ2 )
+
     SpeTest( lm_educ2, para = T )
 
 ```
@@ -397,15 +410,22 @@ Second we model the specification of the conditional expectation of earnings giv
     
 ```{r}
 
+    ### Linear specification
+
     lm_lin <- lm( earnings ~ age + education,
                   data = CPSSW8[1:2000,] )
-    summary(lm_lin)
+
+    summary ( lm_lin )
     
+    SpeTest( lm_lin, para = T )    
+
+    ### Quadratic specification
+
     lm_quad <- lm( earnings ~ age + I(age^2) + education + I(education^2),
                   data = CPSSW8[1:2000,] )
-    summary(lm_quad)
     
-    SpeTest( lm_lin, para = T )
+    summary( lm_quad )
+    
     SpeTest( lm_quad, para = T )
     
 ```
@@ -416,11 +436,15 @@ Next we test a highly non-linear specification with age, age to the square, educ
 
 ```{r}
     
+    ### Non-linear specification
+    
     lm_nlin <- lm( earnings ~ age + I(age^2) + education + I(education^2) 
                    + I(education*age) + I(education^2*age)
                    + I(education*age^2) + I(education^2*age^2),
                    data= CPSSW8[1:2000,] )
     
+    summary( lm_nlin )
+
     SpeTest( lm_nlin, para= T )
     
 ```
