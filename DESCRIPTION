@@ -18,7 +18,7 @@ Description:
     methods can be chosen along with many other options.
     Allows parallel computing to quickly compute p-values based on the bootstrap.
 Language: en-US
-VignetteBuilder: knitr
+VignetteBuilder: knitr, rmarkdown
 License: GPL-2
 NeedsCompilation: yes
 Encoding: UTF-8
