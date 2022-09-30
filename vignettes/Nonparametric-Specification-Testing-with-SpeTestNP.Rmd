@@ -3,9 +3,10 @@ title: "Nonparametric Specification Testing with SpeTestNP"
 author: "Hippolyte Boucher"
 date: "2022-09-30"
 output:
-  pdf_document:
-    toc: yes
-    number_sections: yes
+  html_document:
+    toc: true
+    number_sections: false 
+    toc_depth: 1
 vignette: >
   %\VignetteIndexEntry{"Nonparametric Specification Testing with SpeTestNP"}
   %\VignetteEngine{knitr::knitr}
@@ -20,7 +21,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 In applied work in order to evaluate the effect of a set of exogenous variables on an outcome it is very common to estimate a parametric model such as the linear model with ordinary least squares (OLS). But such parametric specifications may not capture the true relationship between outcome and exogenous variables. In fact if the chosen parametric model is a bad approximation of the true model then counterfactual analysis will be flawed. For this reason in the past forty years a literature on specification tests has developed in order to know if a parametric specification is right or wrong. `SpeTestNP` is a package which implements heteroskedasticity-robust specification tests of parametric models from Bierens (1982), Zheng (1996), Escanciano (2006), Lavergne and Patilea (2008), and Lavergne and Patilea (2012).
 
-Hippolyte Boucher (Hippolyte.Boucher@outlook.com) is the author of `SpeTestNP` and Pascal Lavergne (lavergnetse@gmail.com) is a contributor. Both Hippolyte Boucher and Pascal Lavergne are maintainers and any question or bug should be reported to one of them. This vignette describes the principle behind each test available in `SpeTestNP`, then how to use `SpeTestNP` to test a parametric specification in practice with an application to the wage returns on education and age.
+Hippolyte Boucher ([Hippolyte.Boucher\@outlook.com](mailto:Hippolyte.Boucher@outlook.com){.email}) is the author of `SpeTestNP` and Pascal Lavergne ([lavergnetse\@gmail.com](mailto:lavergnetse@gmail.com){.email}) is a contributor. Both Hippolyte Boucher and Pascal Lavergne are maintainers and any question or bug should be reported to one of them. This vignette describes the principle behind each test available in `SpeTestNP`, then how to use `SpeTestNP` to test a parametric specification in practice with an application to the wage returns on education and age.
 
 # Testing for a parametric specification
 
@@ -46,7 +47,7 @@ $$ H_0:\mathbb{E}(u_j|x_j)=0 \quad a.s $$
 
 And the alternative hypothesis is
 
-$$ H_1:\mathbb{P}(\mathbb{E}(u_j|x_j)=0)<1 $$ 
+$$ H_1:\mathbb{P}(\mathbb{E}(u_j|x_j)=0)<1 $$
 
 Equivalently the null and alternative hypothesis write
 
@@ -64,14 +65,13 @@ $$H_0:\mathbb{E}(u_j|x_j)=0 \quad a.s \ \Leftrightarrow \mathbb{E}(u_jexp(i\beta
 
 where $\mu(\cdot)$ is any positive almost everywhere measure, $|\cdot|$ denotes the modulus, and $i$ is the imaginary unit.
 
-
 ### Zheng (1996)
 
 Instead Zheng (1996) finds an equivalence between the conditional moment condition and an unconditional one
 
 $$H_0:\mathbb{E}(u_j|x_j)=0 \quad a.s \ \Leftrightarrow\mathbb{E}(u_j\mathbb{E}(u_j|x_j)f(x_j))=0$$
 
-where $f(\cdot)$ denotes the probability density function of $x_j$. 
+where $f(\cdot)$ denotes the probability density function of $x_j$.
 
 ### Escanciano (2006)
 
@@ -175,8 +175,7 @@ where $W_{pala}$ is a matrix with diagonal elements equal to zero and its other 
 
 Finally Lavergne and Patilea (2012) use the sample analog of $\int_B\mathbb{E}(\mathbb{E}^2(u_j|\beta'x_j)f_\beta(\beta'x_j))d\beta=0$ for some $B\subseteq\mathbb{S}^k$ as a test statistic. To derive it notice that an empirical counterpart of $\mathbb{E}(\mathbb{E}^2(u_j|\beta'x_j)f_\beta(\beta'x_j))$ is $\mathcal{Q}(\beta)$ as defined in the previous subsection. Hence their test statistic which they call smooth integrated conditional moment statistic writes
 
-$$ T_{sicm}=\frac{n\sqrt{h}\int_B\mathcal{Q}(\beta)d\beta}{\int_B v(\beta)d\beta}=\frac{n\sqrt{h}}{\int_Bv(\beta)d\beta}\hat{u}'W_{sicm}\hat{u}$$
-where $v(\beta)$ is defined as in the previous subsection and $W_{sicm}$ has diagonal elements equal to zero and its other elements are equal to $\frac{1}{n(n-1)h}\int_BK\left(\frac{\beta'(x_j-x_{j'})}{h}\right)$ for any row $j$ and any column $j'\neq j$. Clearly $T_{sicm}$ is a smooth version of $T_{icm}$ because of the bandwidth $h$. Furthermore it is also a smooth version of $T_{pala}$ in the sense that instead of being based on the squared error in the worst direction of $\beta'x_j$, it is based on a continuum of directions. In practice to compute the integral a number `nbeta` of points are drawn randomly from the unit (half) hypersphere. Similarly to the other test, the decision to reject or not the null hypothesis is based on the statistic bootstrapped distribution.
+$$ T_{sicm}=\frac{n\sqrt{h}\int_B\mathcal{Q}(\beta)d\beta}{\int_B v(\beta)d\beta}=\frac{n\sqrt{h}}{\int_Bv(\beta)d\beta}\hat{u}'W_{sicm}\hat{u}$$ where $v(\beta)$ is defined as in the previous subsection and $W_{sicm}$ has diagonal elements equal to zero and its other elements are equal to $\frac{1}{n(n-1)h}\int_BK\left(\frac{\beta'(x_j-x_{j'})}{h}\right)$ for any row $j$ and any column $j'\neq j$. Clearly $T_{sicm}$ is a smooth version of $T_{icm}$ because of the bandwidth $h$. Furthermore it is also a smooth version of $T_{pala}$ in the sense that instead of being based on the squared error in the worst direction of $\beta'x_j$, it is based on a continuum of directions. In practice to compute the integral a number `nbeta` of points are drawn randomly from the unit (half) hypersphere. Similarly to the other test, the decision to reject or not the null hypothesis is based on the statistic bootstrapped distribution.
 
 ## Validity, consistency and power properties
 
@@ -216,8 +215,7 @@ To choose where and how the package is installed check `help(install_github)` an
 
 Recall the true model and the model induced by the parametric specification characterized by $\mathcal{F}=\{f(\cdot,\tilde{\theta}:\theta\in\Theta\subset\mathbb{R}^k\}$
 
-$$ y_j=g(x_j)+\varepsilon_j, \qquad y_j=f(x_j,\theta)+u_j $$
-where $\mathbb{E}(y_j|x_j)=g(x_j) \ a.s$ and $\theta= \ \underset{\tilde{\theta}\in\Theta}{Argmin} \ \mathbb{E}((y_j-f(x_j,\tilde{\theta}))^2)$.
+$$ y_j=g(x_j)+\varepsilon_j, \qquad y_j=f(x_j,\theta)+u_j $$ where $\mathbb{E}(y_j|x_j)=g(x_j) \ a.s$ and $\theta= \ \underset{\tilde{\theta}\in\Theta}{Argmin} \ \mathbb{E}((y_j-f(x_j,\tilde{\theta}))^2)$.
 
 Then to test the parametric specification or equivalently to test $H_0:\mathbb{E}(u_j|x_j)=0 \ a.s$ the function `SpeTest` of the package `SpeTestNP` can be directly used by filling the first argument `eq` with a fitted model of class `lm` or `nls`. In case the parametric specification is linear or can be rewritten in a linear form `eq` should be an object of class `lm`. In case of non-linear models `eq` should be an object of class `nls` which stands for non-linear least squares (from the package `stats`). Note that in order to perform the specification test by feeding `SpeTest` with an `nls` model then the arguments in `nls` must be given in the right order. Then by running the following command the parametric specification characterized by $\mathcal{F}$ is tested
 
@@ -226,7 +224,7 @@ Then to test the parametric specification or equivalently to test $H_0:\mathbb{E
 
 ```
 
-The function returns an object of class `STNP` which when printed with `print` or `print.STNP` returns the test statistic and its p-value. An object of type `STNP` is a list which not only contains the test statistic `stat` and its p-value `pval` but also the type of the test `type`, the rejection rule `rejection`, the test statistic normalization `norma`, the Kernel function denoted as $K(\cdot)$ used to compute the test statistic central matrix  `ker`, the standardization method of test the statistic central matrix `knorm`, the type of bootstrap used to compute the p-value `boot`, the number of bootstrap samples used to compute the p-value `nboot`, the bandwidths `cch` and `hv`, etc... To obtain a summary of the test and its options the method `summary` or `summary.STNP` can be used on objects of class `STNP`.
+The function returns an object of class `STNP` which when printed with `print` or `print.STNP` returns the test statistic and its p-value. An object of type `STNP` is a list which not only contains the test statistic `stat` and its p-value `pval` but also the type of the test `type`, the rejection rule `rejection`, the test statistic normalization `norma`, the Kernel function denoted as $K(\cdot)$ used to compute the test statistic central matrix `ker`, the standardization method of test the statistic central matrix `knorm`, the type of bootstrap used to compute the p-value `boot`, the number of bootstrap samples used to compute the p-value `nboot`, the bandwidths `cch` and `hv`, etc... To obtain a summary of the test and its options the method `summary` or `summary.STNP` can be used on objects of class `STNP`.
 
 By default the test of Bierens (1982) with the standard normal density as the central matrix function is applied and the test p-value is obtained using 50 wild bootstrap samples with a naive estimator of the conditional variance of the errors. Among many options, by changing the argument `rejection` from `bootstrap` (the default) to `asymptotics` if `type = "zheng"` or `type = "pala"` or`type = "sicm"` the test p-value is then based on the asymptotic normality of these normalized test statistics under the null. In addition by default the test statistic is not normalized as in by default the denominator in $T_{zheng}$, $T_{pala}$ and $T_{sicm}$ is set to one. This can be changed by setting `norma = "naive"` to normalize the statistic using a naive estimator of the errors conditional variance as in $T_{zheng}$, or by setting `norma = "np"` to normalize the statistic using a nonparametric estimator of the errors conditional variance as in $T_{pala}$ and $T_{sicm}$. If `rejection = "bootstrap"` setting `para` to `T` greatly speeds up the computation of the p-value by deriving bootstrapped statistics in parallel. For more details refer to the next section or `help(SpeTest)`.
 
@@ -236,110 +234,105 @@ Note that the functions `SpeTest_Stat` and `SpeTest_Dist` are also available. Bo
 
 To be more specific about the arguments of the function `SpeTest`:
 
+-   Argument `eq` should be the fitted parametric model of class `lm` or `nls`of the parametric specification of interest $\mathcal{F}$
 
-- Argument `eq` should be the fitted parametric model of class `lm` or `nls`of the parametric specification of interest $\mathcal{F}$
+-   Argument `type` refers to the type of the test
 
-- Argument `type` refers to the type of the test
+    If `type = "icm"` the test of Bierens (1982) is performed (default)
 
-  If `type = "icm"` the test of Bierens (1982) is performed (default)
-  
-  If `type = "zheng"` the test of Zheng (1996) is performed
-  
-  If `type = "esca"` the test of Escanciano (2006) is performed, significantly increases computing time
-  
-  If `type = "pala"` the test of Lavergne and Patilea (2008) is performed
-  
-  If `type = "sicm"` the test of Lavergne and Patilea (2012) is performed
+    If `type = "zheng"` the test of Zheng (1996) is performed
 
-* Argument `rejection`  refers to the rejection rule
+    If `type = "esca"` the test of Escanciano (2006) is performed, significantly increases computing time
 
-  If `rejection = "bootstrap"` the p-value of the test is based on the bootstrap (default)
+    If `type = "pala"` the test of Lavergne and Patilea (2008) is performed
 
-  If `rejection = "asymptotics"` and `type = "zheng"` or `type = "esca"` or `type = "sicm"` the p-value of the test is based on asymptotic normality of the normalized version of one of these test statistic under the null hypothesis
+    If `type = "sicm"` the test of Lavergne and Patilea (2012) is performed
 
-  If `type = "icm"` or `type = "esca"` the argument `rejection` is ignored and the p-value is based on the bootstrap
+-   Argument `rejection` refers to the rejection rule
 
-* Argument `norma` refers to the normalization of the test statistic
+    If `rejection = "bootstrap"` the p-value of the test is based on the bootstrap (default)
 
-  If `norma = "no"` the test statistic is not normalized (default)
+    If `rejection = "asymptotics"` and `type = "zheng"` or `type = "esca"` or `type = "sicm"` the p-value of the test is based on asymptotic normality of the normalized version of one of these test statistic under the null hypothesis
 
-  If `norma = "naive"` the test statistic is normalized with a naive estimator of the errors variance
+    If `type = "icm"` or `type = "esca"` the argument `rejection` is ignored and the p-value is based on the bootstrap
 
-  If `norma = "np"` the test statistic is normalized with a nonparametric estimator of the errors variance
+-   Argument `norma` refers to the normalization of the test statistic
 
-* Argument `boot` refers to the bootstrap method used to compute the test p-value when `rejection = "bootstrap"`
+    If `norma = "no"` the test statistic is not normalized (default)
 
-  If `boot = "wild"` the wild bootstrap of Wu (1986) is used (default)
+    If `norma = "naive"` the test statistic is normalized with a naive estimator of the errors variance
 
-  If `boot = "smooth"` the smooth conditional moments bootstrap of Gozalo (1997) is used
+    If `norma = "np"` the test statistic is normalized with a nonparametric estimator of the errors variance
 
-* Argument `nboot` is the number of bootstraps used to compute the test p-value, by default `nboot = 50}
+-   Argument `boot` refers to the bootstrap method used to compute the test p-value when `rejection = "bootstrap"`
 
-* Argument `para` determines if parallel computing is used or not when `rejection = "bootstrap"`
+    If `boot = "wild"` the wild bootstrap of Wu (1986) is used (default)
 
-  If `para = F` parallel computing is not used to generate the bootstrap samples to compute the test p-value (default)
+    If `boot = "smooth"` the smooth conditional moments bootstrap of Gozalo (1997) is used
 
-  If `para = T` parallel computing is used to generate the bootstrap samples to compute the test p-value, significantly decreases computing time, makes use of all CPU cores except one
+-   Argument `nboot` is the number of bootstraps used to compute the test p-value, by default \`nboot = 50}
 
-* Argument `ker` refers to the Kernel function used in the central matrix and for the nonparametric covariance estimator if there is any
+-   Argument `para` determines if parallel computing is used or not when `rejection = "bootstrap"`
 
-  If `ker = "normal"` the central matrix Kernel function is the normal p.d.f (default)
+    If `para = F` parallel computing is not used to generate the bootstrap samples to compute the test p-value (default)
 
-  If `ker = "triangle"` the central matrix Kernel function is the triangular p.d.f
+    If `para = T` parallel computing is used to generate the bootstrap samples to compute the test p-value, significantly decreases computing time, makes use of all CPU cores except one
 
-  If `ker = "logistic"` the central matrix Kernel function is the logistic p.d.f
+-   Argument `ker` refers to the Kernel function used in the central matrix and for the nonparametric covariance estimator if there is any
 
-  If `ker = "sinc"` the central matrix Kernel function is the sine cardinal function
+    If `ker = "normal"` the central matrix Kernel function is the normal p.d.f (default)
 
-* Argument `knorm` refers to the normalization of the Kernel function
+    If `ker = "triangle"` the central matrix Kernel function is the triangular p.d.f
 
-  If `knorm = "sd"` then the standard deviation using the Kernel function equals 1 (default)
+    If `ker = "logistic"` the central matrix Kernel function is the logistic p.d.f
 
-  If `knorm ="sq"` then the integral of the squared Kernel function equals 1
+    If `ker = "sinc"` the central matrix Kernel function is the sine cardinal function
 
-* Argument `cch` is the central matrix Kernel bandwidth 
+-   Argument `knorm` refers to the normalization of the Kernel function
 
-  If `type = "icm"` or `type = "esca"` then `cch` always equals `1`
+    If `knorm = "sd"` then the standard deviation using the Kernel function equals 1 (default)
 
-  If `type = "zheng"` the `"default"` bandwidth is the scaled
-rule of thumb: `cch = 1.06*n^(-1/5)`
+    If `knorm ="sq"` then the integral of the squared Kernel function equals 1
 
-  If `type = "sicm"` and `type = "pala"` the `"default"` bandwidth is the scaled rule of thumb: `cch = 1.06*n^(-1/(4+k))` where `k` is the number of regressors
+-   Argument `cch` is the central matrix Kernel bandwidth
 
-  The user may change the bandwidth when `type = "zheng"`, `type = "sicm"` or `type = "pala"`.
+    If `type = "icm"` or `type = "esca"` then `cch` always equals `1`
 
-* Argument `hv` is the bandwidth the nonparametric errors covariance estimator when `norma = "np"` or `rejection = "bootstrap"` and `boot = "smooth"`
+    If `type = "zheng"` the `"default"` bandwidth is the scaled rule of thumb: `cch = 1.06*n^(-1/5)`
 
-  By `"default"` the bandwidth is the scaled rule of thumb `hv = 1.06*n^(-1/(4+k))`
+    If `type = "sicm"` and `type = "pala"` the `"default"` bandwidth is the scaled rule of thumb: `cch = 1.06*n^(-1/(4+k))` where `k` is the number of regressors
 
-* Argument `nbeta` refers to the number of elements $\beta$ used to represent the unit hypersphere $\mathcal{S}^k$ when `type = "pala"` or `type = "sicm"`
+    The user may change the bandwidth when `type = "zheng"`, `type = "sicm"` or `type = "pala"`.
 
-  Computing time increases as `nbeta` gets larger
+-   Argument `hv` is the bandwidth the nonparametric errors covariance estimator when `norma = "np"` or `rejection = "bootstrap"` and `boot = "smooth"`
 
-  By `"default"` it is equal to 20 times the square root of the number of exogenous control variables
+    By `"default"` the bandwidth is the scaled rule of thumb `hv = 1.06*n^(-1/(4+k))`
 
-* Argument `direct` refers to the default "directions" for the tests of Lavergne and Patilea (2008) and Lavergne and Patilea (2012)
+-   Argument `nbeta` refers to the number of elements $\beta$ used to represent the unit hypersphere $\mathcal{S}^k$ when `type = "pala"` or `type = "sicm"`
 
-  If `type = "pala"`, `direct` is the favored direction for $\beta$, by `"default"` it is the OLS estimator if `class(eq) = "lm"`
-  
-  If `type = "sicm"`, `direct` is the initial direction for $\beta$. This direction should be a vector of `0` (for no direction), `1` (for positive direction) and `-1` (for negative direction)
+    Computing time increases as `nbeta` gets larger
 
-  For example, `c(1,-1,0)` indicates that the user thinks that the 1st regressor has a positive effect on the dependent variable, that the 2nd regressor has a negative effect on the dependent variable, and that he has no idea about the effect of the 3rd regressor
-  
-  By `"default"` no direction is given to the hypersphere
+    By `"default"` it is equal to 20 times the square root of the number of exogenous control variables
 
-* Argument `alphan` refers to the weight given to the favored direction for $\beta$ when `type = "pala"`
+-   Argument `direct` refers to the default "directions" for the tests of Lavergne and Patilea (2008) and Lavergne and Patilea (2012)
 
-  By `"default"` it is equal to `log(n)*n^(-3/2)`
+    If `type = "pala"`, `direct` is the favored direction for $\beta$, by `"default"` it is the OLS estimator if `class(eq) = "lm"`
 
+    If `type = "sicm"`, `direct` is the initial direction for $\beta$. This direction should be a vector of `0` (for no direction), `1` (for positive direction) and `-1` (for negative direction)
 
-Before changing the default options of arguments  `norma`, `direct` and `alphan` we strongly advise the user to read the tests references.
+    For example, `c(1,-1,0)` indicates that the user thinks that the 1st regressor has a positive effect on the dependent variable, that the 2nd regressor has a negative effect on the dependent variable, and that he has no idea about the effect of the 3rd regressor
 
+    By `"default"` no direction is given to the hypersphere
+
+-   Argument `alphan` refers to the weight given to the favored direction for $\beta$ when `type = "pala"`
+
+    By `"default"` it is equal to `log(n)*n^(-3/2)`
+
+Before changing the default options of arguments `norma`, `direct` and `alphan` we strongly advise the user to read the tests references.
 
 ## Application
 
 To finish we use data on 2,000 individuals from the Current Population Survey as in Stock and Watson (2007) to find the true shape of their expected earnings conditional on their years of education and their age using the test of Bierens (1982).
-
 
 ```{r}
 
@@ -357,9 +350,9 @@ To finish we use data on 2,000 individuals from the Current Population Survey as
 The dependent variable we consider is earnings and the explanatory variables we focus on are education and age.
 
 ### Expected earnings conditional on age and education separately
-    
+
 First we consider the specification of the conditional expectation of earnings given the two explanatory variables separately. Conditional on age only:
-    
+
 ```{r}
     
     ### Linear specification
@@ -407,7 +400,7 @@ Similarly the quadratic specification of the expectation conditional on educatio
 ### Expected earnings conditional on age and education jointly
 
 Second we model the specification of the conditional expectation of earnings given the two explanatory variables jointly. Conditional on age and education we consider a linear and a quadratic specification with age, education, and their square included as control variables:
-    
+
 ```{r}
 
     ### Linear specification
@@ -429,9 +422,9 @@ Second we model the specification of the conditional expectation of earnings giv
     SpeTest( lm_quad, para = T )
     
 ```
-    
+
 We reject these two specifications because the p-value is equal to 0. They do not approximate properly the conditional expectation with respect to both age and education.
-    
+
 Next we test a highly non-linear specification with age, age to the square, education, education to the square, and their products included as controls:
 
 ```{r}
@@ -448,11 +441,10 @@ Next we test a highly non-linear specification with age, age to the square, educ
     SpeTest( lm_nlin, para= T )
     
 ```
-    
-And we do not reject this specification because the p-value is above 50%. This means that the expectation of earnings conditional on age and education highly depends on the co-movement of age and education.
-    
-Indeed, even tough a linear model with two control variables provides better fit than a model with only one control variable it does not manage to properly model the true relationship between the outcome and the controls, ie it does not manage to properly model the conditional expectation. In that sense if we add more control variables linearly we can obtain better fit but will most likely obtain a worse estimate of the conditional expectation.
 
+And we do not reject this specification because the p-value is above 50%. This means that the expectation of earnings conditional on age and education highly depends on the co-movement of age and education.
+
+Indeed, even tough a linear model with two control variables provides better fit than a model with only one control variable it does not manage to properly model the true relationship between the outcome and the controls, ie it does not manage to properly model the conditional expectation. In that sense if we add more control variables linearly we can obtain better fit but will most likely obtain a worse estimate of the conditional expectation.
 
 # References
 
@@ -470,8 +462,6 @@ J.H. Stock and M.W. Watson (2007), ["Why Has U.S. Inflation Become Harder to For
 
 C.F.J. Wu (1986) ["Jacknife, bootstrap and other resampling methods in regression analysis (with discussion)"](https://www.jstor.org/stable/2241454), *Annals of Statistics*, 14 (4), 1261-1350
 
-J. Yin, Z. Geng, R. Li, H. Wang (2010), ["Nonparametric covariance model"](https://www.jstor.org/stable/24309002),
-*Statistica Sinica*, 20 (1), 469-479
+J. Yin, Z. Geng, R. Li, H. Wang (2010), ["Nonparametric covariance model"](https://www.jstor.org/stable/24309002), *Statistica Sinica*, 20 (1), 469-479
 
 J.X. Zheng (1996), ["A Consistent Test of Functional Form via Nonparametric Estimation Techniques"](https://econpapers.repec.org/article/eeeeconom/v_3a75_3ay_3a1996_3ai_3a2_3ap_3a263-289.htm), *Journal of Econometrics*, 75 (2), 263-289
-
