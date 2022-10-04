@@ -8,3 +8,5 @@
 ^\.Rproj\.user$
 ^doc$
 ^Meta$
+^CRAN-SUBMISSION$
+^cran-comments\.md$
