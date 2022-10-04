@@ -3,18 +3,18 @@ title: "Nonparametric Specification Testing with SpeTestNP"
 author: "Hippolyte Boucher"
 date: "2022-09-30"
 output:
-  html_document:
+  html_vignette:
     toc: true
-    number_sections: false 
-    toc_depth: 1
+    number_sections: true
+    toc_depth: 2
 vignette: >
-  %\VignetteIndexEntry{"Nonparametric Specification Testing with SpeTestNP"}
-  %\VignetteEngine{knitr::knitr}
+  %\VignetteIndexEntry{Nonparametric Specification Testing with SpeTestNP}
+  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, comment = "#>")
 ```
 
 # Introduction
@@ -41,7 +41,7 @@ where $\theta= \ \underset{\tilde{\theta}\in\Theta}{Argmin} \ \mathbb{E}((y_j-f(
 
 $$ g(\cdot)= \ \underset{\tilde{g}}{Argmin} \ \mathbb{E}((y_j-\tilde{g}(x_j))^2) =\ \underset{\tilde{g}\in\mathcal{F}}{Argmin} \ \mathbb{E}((y_j-\tilde{g}(x_j))^2)= \ \underset{\tilde{\theta}\in\Theta}{Argmin} \ \mathbb{E}((y_j-f(x_j,\tilde{\theta}))^2)=f(\cdot,\theta) $$
 
-Consequently when modelling the true relationship between $y$ and $x$ with a parametric model, the implicit null hypothesis is
+Consequently when modeling the true relationship between $y$ and $x$ with a parametric model, the implicit null hypothesis is
 
 $$ H_0:\mathbb{E}(u_j|x_j)=0 \quad a.s $$
 
@@ -57,15 +57,15 @@ $$H_0: g(x_j)=f(x_j,\theta) \quad a.s, \qquad H_1:\mathbb{P}(g(x_j)=f(x_j,\theta
 
 Next to construct specification tests the null hypothesis is reformulated into moments conditions from which statistics can be derived. The five reformulations of the null hypothesis are in order.
 
-### Bierens (1982)
+### Bierens (1982) {-}
 
 Bierens (1982) proves that the conditional moment condition of the null hypothesis is equivalent to an infinite number of moment conditions which is equivalent to an integrated conditional moment condition
 
-$$H_0:\mathbb{E}(u_j|x_j)=0 \quad a.s \ \Leftrightarrow \mathbb{E}(u_jexp(i\beta'x_j))=0 \ \ \forall \beta\in\mathbb{R}^{k}\Leftrightarrow \int_{\mathbb{R}^k}\left|\mathbb{E}(u_jexp(i\beta'x_j))\right|^2d\mu(\beta)=0$$
+$$H_0:\mathbb{E}(u_j|x_j)=0 \quad a.s \ \Leftrightarrow \mathbb{E}(u_j exp(i\beta' x_j))=0 \ \ \forall \beta\in\mathbb{R}^{k}\Leftrightarrow \int_{\mathbb{R}^k}\left|\mathbb{E}(u_j exp(i\beta' x_j))\right|^2d\mu(\beta)=0$$
 
 where $\mu(\cdot)$ is any positive almost everywhere measure, $|\cdot|$ denotes the modulus, and $i$ is the imaginary unit.
 
-### Zheng (1996)
+### Zheng (1996) {-}
 
 Instead Zheng (1996) finds an equivalence between the conditional moment condition and an unconditional one
 
@@ -73,39 +73,39 @@ $$H_0:\mathbb{E}(u_j|x_j)=0 \quad a.s \ \Leftrightarrow\mathbb{E}(u_j\mathbb{E}(
 
 where $f(\cdot)$ denotes the probability density function of $x_j$.
 
-### Escanciano (2006)
+### Escanciano (2006) {-}
 
 Escanciano (2006) proves the equivalence between the null hypothesis, an infinite number of moment conditions which differ from Bierens (1982), and an integrated moment condition
 
-$$H_0:\mathbb{E}(u_j|x_j)=0 \quad a.s \ \Leftrightarrow\mathbb{E}(u_j1\{\beta'x_j\leqslant l\})=0 \ \ \forall(t,l)\in\mathbb{S}^{k}\times \mathbb{R}\\ \Leftrightarrow \int_{\mathbb{S}^k\times\mathbb{R}}\mathbb{E}^2(u_j1\{\beta'x_j\leqslant l\})f_\beta(u)d\beta dl=0$$
+$$H_0:\mathbb{E}(u_j|x_j)=0 \quad a.s \ \Leftrightarrow\mathbb{E}(u_j1\{\beta' x_j\leqslant l\})=0 \ \ \forall(t,l)\in\mathbb{S}^{k}\times \mathbb{R}\\ \Leftrightarrow \int_{\mathbb{S}^k\times\mathbb{R}}\mathbb{E}^2(u_j1\{\beta' x_j\leqslant l\})f_\beta(u)d\beta dl=0$$
 
-where $1\{\cdot\}$ denotes the indicator function, $\mathbb{S}^{k}=\{\beta\in\mathbb{R}^k:|\beta|=1\}$ denotes the unit sphere, and $f_\beta(\cdot)$ denotes the probability density function of $\beta'x_j$.
+where $1\{\cdot\}$ denotes the indicator function, $\mathbb{S}^{k}=\{\beta\in\mathbb{R}^k:|\beta|=1\}$ denotes the unit sphere, and $f_\beta(\cdot)$ denotes the probability density function of $\beta' x_j$.
 
-### Lavergne and Patilea (2008)
+### Lavergne and Patilea (2008) {-}
 
 Lavergne and Patilea (2008) show that the null hypothesis is equivalent to an infinite number of unconditional moment conditions
 
-$$H_0:\mathbb{E}(u_j|x_j)=0 \quad a.s \ \Leftrightarrow \ \underset{||\beta||=1}{max} \ \mathbb{E}(u_j\mathbb{E}(u_j|\beta'x_j)\omega(\beta'x_j))=0$$
+$$H_0:\mathbb{E}(u_j|x_j)=0 \quad a.s \ \Leftrightarrow \ \underset{||\beta||=1}{max} \ \mathbb{E}(u_j\mathbb{E}(u_j|\beta' x_j)\omega(\beta' x_j))=0$$
 
-for any $\omega(\cdot)$ such that $\forall \beta\in\mathbb{R}^k$, $\omega(\beta'x_j)>0$ on the support of $\mathbb{E}(u_j|\beta'x_j)$. This condition resembles that of Zheng (1996) with $\beta'x_j$ replacing $x_j$ in an effort to remove the curse of dimensionality.
+for any $\omega(\cdot)$ such that $\forall \beta\in\mathbb{R}^k$, $\omega(\beta' x_j)>0$ on the support of $\mathbb{E}(u_j|\beta' x_j)$. This condition resembles that of Zheng (1996) with $\beta' x_j$ replacing $x_j$ in an effort to remove the curse of dimensionality.
 
-### Lavergne and Patilea (2012)
+### Lavergne and Patilea (2012) {-}
 
 Finally Lavergne and Patilea (2012) prove the equivalence between the null and an integrated moment condition
 
-$$H_0:\mathbb{E}(u_j|x_j)=0 \quad a.s \ \Leftrightarrow \int_B\mathbb{E}(\mathbb{E}^2(u_j|\beta'x_j)f_\beta(\beta'x_j))d\beta=0$$
+$$H_0:\mathbb{E}(u_j|x_j)=0 \quad a.s \ \Leftrightarrow \int_B\mathbb{E}(\mathbb{E}^2(u_j|\beta' x_j)f_\beta(\beta' x_j))d\beta=0$$
 
-where $B\subseteq \mathbb{S}^k$ and $f_\beta(\cdot)$ denotes the density of $\beta'x_j$. This moment condition combines the integrated moments approaches of Bierens (1982) and Escanciano (2006) and the dimension reduction devise used in Lavergne and Patilea (2008).
+where $B\subseteq \mathbb{S}^k$ and $f_\beta(\cdot)$ denotes the density of $\beta' x_j$. This moment condition combines the integrated moments approaches of Bierens (1982) and Escanciano (2006) and the dimension reduction devise used in Lavergne and Patilea (2008).
 
 ## Test statistics
 
 Each test relies on reformulating the null hypothesis into a moment condition for which an empirical counterpart exist. Thus the test statistics are sample analogs of the moments defining the null hypothesis, possibly multiplied by the sample size in order to obtain variation at the limit, and possibly standardized. Denote by $\hat{\theta}$ a consistent estimator of $\theta$ and let $\hat{u}_j=y_j-f(x_j,\hat{\theta})$ denote the residual for individual $j$. The five test statistics are derived in order.
 
-### Bierens (1982)
+### Bierens (1982) {-}
 
-An empirical counterpart of the integrated conditional moment $\int_{\mathbb{R}^k}\left|\mathbb{E}(u_jexp(i\beta'x_j))\right|^2d\mu(\beta)$ of Bierens (1982) is
+An empirical counterpart of the integrated conditional moment $\int_{\mathbb{R}^k}\left|\mathbb{E}(u_j exp(i\beta' x_j))\right|^2d\mu(\beta)$ of Bierens (1982) is
 
-$$ T_{icm}=\int_{\mathbb{R}^k}\left|\frac{1}{\sqrt{n}}\sum_{j=1}^n\hat{u}_jexp(i\beta'x_j)\right|^2d\mu(\beta) $$
+$$ T_{icm}=\int_{\mathbb{R}^k}\left|\frac{1}{\sqrt{n}}\sum_{j=1}^n\hat{u}_j exp(i\beta' x_j)\right|^2d\mu(\beta) $$
 
 with some positive almost everywhere measure $\mu(\cdot)$. Using properties of the modulus and of the Fourier transform it can then be shown that
 
@@ -115,11 +115,11 @@ where $K(\cdot)$ is the Fourier transform of $\mu(\cdot)$, $\hat{u}=(\hat{u}_1,\
 
 To decide whether to reject or not the null hypothesis we need to compute quantiles of the distribution under the null of $T_{icm}$ conditional on $x\equiv=(x_1,\dots,x_n)'$. To do so, $x$ is held fixed (and therefore $W$ is held fixed) and a $n\times 1$ vector of residuals $\hat{u}_b$ is drawn using the wild bootstrap of Wu (1986) or the smooth conditional moment bootstrap of Gozalo (1997) in order to control for potential heteroskedasticity. Using this bootstrapped vector of residuals a bootstrapped statistic can be computed
 
-$$ T_{icm,b}=\frac{1}{n}\hat{u}_b'W_{icm}\hat{u}_b $$
+$$ T_{icm,b}=\frac{1}{n}\hat{u}_b' W_{icm}\hat{u}_b $$
 
 By repeating this operation $B$ times we obtain $B$ bootstrapped statistics $(T_{icm,b})_{b=1}^B$ which mimic the behavior of $T_{icm}$ under the null hypothesis. Consequently the parametric specification will be rejected at level $5\%$ if $T_{icm}>q_{95\%}$ where $q_{95\%}$ is the $95\%$ quantile of $(T_{icm,b})_{b=1}^B$.
 
-### Zheng (1996)
+### Zheng (1996) {-}
 
 Zheng (1996) test statistic is the sample analog of $\mathbb{E}(u_j\mathbb{E}(u_j|x_j)f(x_j))$ which is derived by estimating both the density $f(\cdot)$ of $x_j$ and the conditional mean $\mathbb{E}(u_j|x_j=\cdot)$ with Kernels. For any $\tilde{x}\in\mathbb{R}^k$ define
 
@@ -135,53 +135,53 @@ $$ T_{zheng}=\frac{\sqrt{nh^k}\hat{V}}{\hat{\Sigma}}=\frac{\sqrt{nh^k}\hat{u}'W_
 
 where $W_{zheng}$ is a matrix whose diagonal elements are equal to zero and its other entries are equal to $K\left(\frac{x_{j}-x_{j'}}{h}\right)$ for any row $j$ any column $j'$ such that $j\neq j'$. This statistic is pivotal and converge towards the standard normal distribution under the null as proven in Zheng (1996). Sill we can use the wild bootstrap or smooth conditional moment bootstrap to redraw residuals, obtain bootstrapped statistics, and approximate the behavior under the null of \$T\_{zheng}. In fact using the bootstrap yields a test with better performances which is why the p-value we implement for the Zheng test is also obtained from the bootstrap.
 
-### Escanciano (2006)
+### Escanciano (2006) {-}
 
-Escanciano (2006) test statistic is the sample analog of $\int_{\mathbb{S}^k\times\mathbb{R}} \mathbb{E}^2(u_j1\{\beta'x_j\leqslant l\})d\beta dl$ times $n$ which is derived by approximating the density $f_\beta(\cdot)$ by a probability mass function. Let $\hat{f}_t(l)=\frac{1}{n}\sum_r1\{\beta'x_r=l\}$ then the statistic is
+Escanciano (2006) test statistic is the sample analog of $\int_{\mathbb{S}^k\times\mathbb{R}} \mathbb{E}^2(u_j1\{\beta' x_j\leqslant l\})d\beta dl$ times $n$ which is derived by approximating the density $f_\beta(\cdot)$ by a probability mass function. Let $\hat{f}_t(l)=\frac{1}{n}\sum_r1\{\beta' x_r=l\}$ then the statistic is
 
-$$ T_{esca}=\int_{\mathbb{S}^k\times\mathbb{R}}\left(\frac{1}{\sqrt{n}}\sum_j \hat{u}_j1\{\beta'x_j\leqslant l\}\right)^2\hat{f}_t(l)d\beta dl $$
+$$ T_{esca}=\int_{\mathbb{S}^k\times\mathbb{R}}\left(\frac{1}{\sqrt{n}}\sum_j \hat{u}_j1\{\beta' x_j\leqslant l\}\right)^2\hat{f}_t(l)d\beta dl $$
 
 It can be proven that it has the same form as the other test statistics
 
-$$ T_{esca} = \frac{1}{n}\sum_{j,j'}\hat{u}_j\hat{u}_{j'}\frac{1}{n}\sum_r\int_{\mathbb{S}^k}1\{\beta'x_j\leqslant \beta'x_r,\beta'x_{j'}\leqslant \beta'x_r\}d\beta=\frac{1}{n}\hat{u}'W_{esca}\hat{u}$$
+$$ T_{esca} = \frac{1}{n}\sum_{j,j'}\hat{u}_j\hat{u}_{j'}\frac{1}{n}\sum_r\int_{\mathbb{S}^k}1\{\beta' x_j\leqslant \beta' x_r,\beta' x_{j'}\leqslant \beta' x_r\}d\beta=\frac{1}{n}\hat{u}'W_{esca}\hat{u}$$
 
-where $W_{esca}$ has elements $\frac{1}{n}\sum_rW_{esca,j,j',r}$ with $W_{esca,j,j',r}=\int_{\mathbb{S}^k}1\{\beta'x_j\leqslant \beta'x_r,\beta'x_{j'}\leqslant \beta'x_r\}d\beta$ for any row $j$ and column $j'$. Approximating the integrals in $W_{esca}$ is unecessary because
+where $W_{esca}$ has elements $\frac{1}{n}\sum_r W_{esca,j,j',r}$ with $W_{esca,j,j',r}=\int_{\mathbb{S}^k}1\{\beta' x_j\leqslant \beta' x_r,\beta' x_{j'}\leqslant \beta' x_r\}d\beta$ for any row $j$ and column $j'$. Approximating the integrals in $W_{esca}$ is unnecessary because
 
-$$ W_{esca,j,j',r}=W_{esca,j,j',r}^{(0)}\frac{\pi^{k/2}-1}{\Gamma(k/2+1)}, \qquad W_{esca,j,j',r}^{(0)}=\left|\pi-arcos\left(\frac{(x_j-x_{r})'(x_{j'}-x_r)}{|x_j-x_{r}||x_{j'}-x_r|}\right)\right|$$
+$$ W_{esca,j,j',r}=W_{esca,j,j',r}^{(0)}\frac{\pi^{k/2}-1}{\Gamma(k/2+1)}, \qquad W_{esca,j,j',r}^{(0)}=\left|\pi-arccos\left(\frac{(x_j-x_{r})'(x_{j'}-x_r)}{|x_j-x_{r}||x_{j'}-x_r|}\right)\right|$$
 
 See appendix B in Escanciano (2006) for more details. Again the wild bootstrap and smooth conditional moment bootstrap can be used to resample the residuals and to obtain a vector of bootstrapped statistics from which the quantiles will determine the cutoff point for $T_{esca}$ for the rejection of the null.
 
-### Lavergne and Patilea (2008)
+### Lavergne and Patilea (2008) {-}
 
-Lavergne and Patilea (2008) consider a sample analog of the moment $\mathbb{E}(u_j\mathbb{E}(u_j|x_j)\omega(\beta'x_j))$ with $\omega(\cdot)=f_\beta(\cdot)$ the density of $\beta'x_j$ then its maximum in $t$ in the unit hypersphere. Thus first define for any $t\in\mathbb{S}^k$
+Lavergne and Patilea (2008) consider a sample analog of the moment $\mathbb{E}(u_j\mathbb{E}(u_j|x_j)\omega(\beta' x_j))$ with $\omega(\cdot)=f_\beta(\cdot)$ the density of $\beta' x_j$ then its maximum in $t$ in the unit hypersphere. Thus first define for any $t\in\mathbb{S}^k$
 
 $$ \mathcal{Q}(\beta)=\frac{1}{n(n-1)h}\sum_{j,j'\neq j}\hat{u}_j\hat{u}_{j'} K\left(\frac{\beta'(x_j-x_{j'})}{h}\right)$$
 
-where $K(\cdot)$ is a bounded symmetric density with bounded variation, $h$ is a bandwidth such that $h\underset{n\rightarrow +\infty}{\rightarrow}0$ and $(nh^2)^\alpha/log(n)\underset{n\rightarrow+\infty}{\rightarrow}+\infty$ for some $\alpha\in(0;1)$. But instead of directly considering $\underset{\beta\in\mathbb{S}^k}{max} \ n\sqrt{h}\mathcal{Q}(\beta)$ as the test statistic, the authors further reduce the dimension problem and normalise. Let
+where $K(\cdot)$ is a bounded symmetric density with bounded variation, $h$ is a bandwidth such that $h\underset{n\rightarrow +\infty}{\rightarrow}0$ and $(nh^2)^\alpha/log(n)\underset{n\rightarrow+\infty}{\rightarrow}+\infty$ for some $\alpha\in(0;1)$. But instead of directly considering $\underset{\beta\in\mathbb{S}^k}{max} \ n\sqrt{h}\mathcal{Q}(\beta)$ as the test statistic, the authors further reduce the dimension problem and normalize. Let
 
 $$ v^2(\beta)=\frac{2}{n(n-1)h}\sum_{j,j'\neq j}\hat{\sigma}^2(x_j)\hat{\sigma}^2(x_{j'})K^2\left(\frac{\beta'(x_j-x_{j'})}{h}\right)$$
 
 where $\hat{\sigma}(\cdot)$ is a consistent estimator of the conditional variance of $y_j$. We implement the conditional variance estimator of Yin, Geng, Li and Wang (2010) which writes
 
-$$ \hat{\sigma}(\tilde{x})=\frac{\frac{1}{nh_v}\sum_j(y_j-\bar{y}(\tilde{x}))^2K_v\left(\frac{\tilde{x}-x_j}{h_v}\right)}{\frac{1}{nh_v}\sum_jK_v\left(\frac{\tilde{x}-x_j}{h_v}\right)}, \qquad \bar{y}(\tilde{x})=\frac{\frac{1}{nh_v}\sum_jy_jK_v\left(\frac{\tilde{x}-x_j}{h_v}\right)}{\frac{1}{nh_v}\sum_jK_v\left(\frac{\tilde{x}-x_j}{h_v}\right)}$$
+$$ \hat{\sigma}(\tilde{x})=\frac{\frac{1}{nh_v}\sum_j(y_j-\bar{y}(\tilde{x}))^2K_v\left(\frac{\tilde{x}-x_j}{h_v}\right)}{\frac{1}{nh_v}\sum_j K_v\left(\frac{\tilde{x}-x_j}{h_v}\right)}, \qquad \bar{y}(\tilde{x})=\frac{\frac{1}{nh_v}\sum_j y_j K_v\left(\frac{\tilde{x}-x_j}{h_v}\right)}{\frac{1}{nh_v}\sum_j K_v\left(\frac{\tilde{x}-x_j}{h_v}\right)}$$
 
 where $K_v$ is a Kernel function and $h_v$ a bandwidth which can be different from $K$ and $h$. Next define $\hat{\beta}= \ \underset{\beta\in\mathbb{S}^k}{Argmax} \ |n\sqrt{h}\mathcal{Q}(\beta)-\alpha 1\{\beta\neq \beta^*\}|$ where $\alpha\underset{n\rightarrow+\infty}{\rightarrow}0$. $\beta^*$ is a user chosen favorite direction for capturing the information of $x_j$ thus to compute $\hat{\beta}$ candidates which are far from $\beta^*$ are penalized. Consequently the test statistic is
 
 $$ T_{pala}=\frac{n\sqrt{h}\mathcal{Q}(\hat{\beta})}{v(\hat{\beta})}=\frac{n\sqrt{h}}{v(\hat{\beta})}\hat{u}'W_{pala}\hat{u} $$
 
-where $W_{pala}$ is a matrix with diagonal elements equal to zero and its other entries equal to $\frac{1}{n(n-1)h}K\left(\frac{\hat{\beta}'(x_j-x_{j'})}{h}\right)$ for any row $j$ and column $j'$ such that $j\neq j'$. Once again the test decision will be based on the statistic boostrapped distribution.
+where $W_{pala}$ is a matrix with diagonal elements equal to zero and its other entries equal to $\frac{1}{n(n-1)h}K\left(\frac{\hat{\beta}'(x_j-x_{j'})}{h}\right)$ for any row $j$ and column $j'$ such that $j\neq j'$. Once again the test decision will be based on the statistic bootstrapped distribution.
 
-### Lavergne and Patilea (2012)
+### Lavergne and Patilea (2012) {-}
 
-Finally Lavergne and Patilea (2012) use the sample analog of $\int_B\mathbb{E}(\mathbb{E}^2(u_j|\beta'x_j)f_\beta(\beta'x_j))d\beta=0$ for some $B\subseteq\mathbb{S}^k$ as a test statistic. To derive it notice that an empirical counterpart of $\mathbb{E}(\mathbb{E}^2(u_j|\beta'x_j)f_\beta(\beta'x_j))$ is $\mathcal{Q}(\beta)$ as defined in the previous subsection. Hence their test statistic which they call smooth integrated conditional moment statistic writes
+Finally Lavergne and Patilea (2012) use the sample analog of $\int_B\mathbb{E}(\mathbb{E}^2(u_j|\beta' x_j)f_\beta(\beta' x_j))d\beta=0$ for some $B\subseteq\mathbb{S}^k$ as a test statistic. To derive it notice that an empirical counterpart of $\mathbb{E}(\mathbb{E}^2(u_j|\beta' x_j)f_\beta(\beta' x_j))$ is $\mathcal{Q}(\beta)$ as defined in the previous subsection. Hence their test statistic which they call smooth integrated conditional moment statistic writes
 
-$$ T_{sicm}=\frac{n\sqrt{h}\int_B\mathcal{Q}(\beta)d\beta}{\int_B v(\beta)d\beta}=\frac{n\sqrt{h}}{\int_Bv(\beta)d\beta}\hat{u}'W_{sicm}\hat{u}$$ where $v(\beta)$ is defined as in the previous subsection and $W_{sicm}$ has diagonal elements equal to zero and its other elements are equal to $\frac{1}{n(n-1)h}\int_BK\left(\frac{\beta'(x_j-x_{j'})}{h}\right)$ for any row $j$ and any column $j'\neq j$. Clearly $T_{sicm}$ is a smooth version of $T_{icm}$ because of the bandwidth $h$. Furthermore it is also a smooth version of $T_{pala}$ in the sense that instead of being based on the squared error in the worst direction of $\beta'x_j$, it is based on a continuum of directions. In practice to compute the integral a number `nbeta` of points are drawn randomly from the unit (half) hypersphere. Similarly to the other test, the decision to reject or not the null hypothesis is based on the statistic bootstrapped distribution.
+$$ T_{sicm}=\frac{n\sqrt{h}\int_B\mathcal{Q}(\beta)d\beta}{\int_B v(\beta)d\beta}=\frac{n\sqrt{h}}{\int_B v(\beta)d\beta}\hat{u}'W_{sicm}\hat{u}$$ where $v(\beta)$ is defined as in the previous subsection and $W_{sicm}$ has diagonal elements equal to zero and its other elements are equal to $\frac{1}{n(n-1)h}\int_BK\left(\frac{\beta'(x_j-x_{j'})}{h}\right)$ for any row $j$ and any column $j'\neq j$. Clearly $T_{sicm}$ is a smooth version of $T_{icm}$ because of the bandwidth $h$. Furthermore it is also a smooth version of $T_{pala}$ in the sense that instead of being based on the squared error in the worst direction of $\beta' x_j$, it is based on a continuum of directions. In practice to compute the integral a number `nbeta` of points are drawn randomly from the unit (half) hypersphere. Similarly to the other test, the decision to reject or not the null hypothesis is based on the statistic bootstrapped distribution.
 
 ## Validity, consistency and power properties
 
 Each test can be proven to be valid, as in under the null hypothesis the probability to reject the null converges to nominal level, and to be consistent, as in under any fixed alternative the probability to reject the null converges to one.
 
-But these five tests differ significantly in terms of power in practice. The test of Bierens (1982) seem to be the least powerful test in practice, under the alternative it diverges at a slow rate and has difficulty rejecting the null when the number $k$ of exogenous variables is large. By construction the test of Zheng (1996) diverges at a faster rate than Bierens (1982) under the alternative but it has trouble rejecting the null when $k$ is large. The test of Escanciano (2006) does not depend on a choice of weighting function and does not require numerical integration however to derive its statistic it requires $n^3$ operations making it very slow and hard to apply in practice. In addition its power however largely depends on the true alternative and is low when $k$ is large. The tests of Lavergne and Patilea (2008), and Lavergne and Patilea (2012) are more powerful than the other two when $k$ is large because of their use of a continuum of single index $\beta'x_j$ to summarize the correlation between $u_j$ and $x_j$. At the same time when $k$ is small the two tests are at least as powerful as the others. As mentioned the power of Lavergne and Patilea (2008) test comes from the "worst" single-index alternative whereas the power of Lavergne and Patilea (2012) test comes from a continuum of single-index alternatives. Thus in practice under the alternative the nature of the correlation between $u_j$ and $x_j$ will determine which of these two tests is more powerful.
+But these five tests differ significantly in terms of power in practice. The test of Bierens (1982) seem to be the least powerful test in practice, under the alternative it diverges at a slow rate and has difficulty rejecting the null when the number $k$ of exogenous variables is large. By construction the test of Zheng (1996) diverges at a faster rate than Bierens (1982) under the alternative but it has trouble rejecting the null when $k$ is large. The test of Escanciano (2006) does not depend on a choice of weighting function and does not require numerical integration however to derive its statistic it requires $n^3$ operations making it very slow and hard to apply in practice. In addition its power however largely depends on the true alternative and is low when $k$ is large. The tests of Lavergne and Patilea (2008), and Lavergne and Patilea (2012) are more powerful than the other two when $k$ is large because of their use of a continuum of single index $\beta' x_j$ to summarize the correlation between $u_j$ and $x_j$. At the same time when $k$ is small the two tests are at least as powerful as the others. As mentioned the power of Lavergne and Patilea (2008) test comes from the "worst" single-index alternative whereas the power of Lavergne and Patilea (2012) test comes from a continuum of single-index alternatives. Thus in practice under the alternative the nature of the correlation between $u_j$ and $x_j$ will determine which of these two tests is more powerful.
 
 See the references for more details.
 
@@ -349,11 +349,11 @@ To finish we use data on 2,000 individuals from the Current Population Survey as
 
 The dependent variable we consider is earnings and the explanatory variables we focus on are education and age.
 
-### Expected earnings conditional on age and education separately
+### Expected earnings conditional on age and education separately {-}
 
 First we consider the specification of the conditional expectation of earnings given the two explanatory variables separately. Conditional on age only:
 
-```{r}
+```{r }
     
     ### Linear specification
     
@@ -361,7 +361,7 @@ First we consider the specification of the conditional expectation of earnings g
 
     summary( lm_age )
 
-    SpeTest( lm_age, para = T )
+    SpeTest( lm_age )
 
     ### Quadratic specification
     
@@ -369,13 +369,13 @@ First we consider the specification of the conditional expectation of earnings g
     
     summary( lm_age2 )
     
-    SpeTest( lm_age2, para = T )
+    SpeTest( lm_age2 )
     
 ```
 
 Clearly the quadratic specification of the expectation conditional on age is not rejected, the p-value is above 50%. Conditional on education only:
 
-```{r}
+```{r }
 
     ### Linear specification
     
@@ -383,7 +383,7 @@ Clearly the quadratic specification of the expectation conditional on age is not
 
     summary( lm_educ )
 
-    SpeTest( lm_educ, para = T )
+    SpeTest( lm_educ )
     
     ### Quadratic specification
     
@@ -391,17 +391,17 @@ Clearly the quadratic specification of the expectation conditional on age is not
     
     summary( lm_educ2 )
 
-    SpeTest( lm_educ2, para = T )
+    SpeTest( lm_educ2 )
 
 ```
 
 Similarly the quadratic specification of the expectation conditional on education is not rejected.
 
-### Expected earnings conditional on age and education jointly
+### Expected earnings conditional on age and education jointly {-}
 
 Second we model the specification of the conditional expectation of earnings given the two explanatory variables jointly. Conditional on age and education we consider a linear and a quadratic specification with age, education, and their square included as control variables:
 
-```{r}
+```{r }
 
     ### Linear specification
 
@@ -410,7 +410,7 @@ Second we model the specification of the conditional expectation of earnings giv
 
     summary ( lm_lin )
     
-    SpeTest( lm_lin, para = T )    
+    SpeTest( lm_lin )    
 
     ### Quadratic specification
 
@@ -419,7 +419,7 @@ Second we model the specification of the conditional expectation of earnings giv
     
     summary( lm_quad )
     
-    SpeTest( lm_quad, para = T )
+    SpeTest( lm_quad )
     
 ```
 
@@ -427,7 +427,7 @@ We reject these two specifications because the p-value is equal to 0. They do no
 
 Next we test a highly non-linear specification with age, age to the square, education, education to the square, and their products included as controls:
 
-```{r}
+```{r }
     
     ### Non-linear specification
     
@@ -438,7 +438,7 @@ Next we test a highly non-linear specification with age, age to the square, educ
     
     summary( lm_nlin )
 
-    SpeTest( lm_nlin, para= T )
+    SpeTest( lm_nlin )
     
 ```
 
@@ -448,7 +448,7 @@ Indeed, even tough a linear model with two control variables provides better fit
 
 # References
 
-H.J. Bierens (1982), ["Conistent Model Specification Test"](https://www.sciencedirect.com/science/article/pii/0304407682901051), *Journal of Econometrics*, 20 (1), 105-134
+H.J. Bierens (1982), ["Consistent Model Specification Test"](https://www.sciencedirect.com/science/article/pii/0304407682901051), *Journal of Econometrics*, 20 (1), 105-134
 
 J.C. Escanciano (2006), ["A Consistent Diagnostic Test for Regression Models Using Projections"](https://www.jstor.org/stable/4093212), *Econometric Theory*, 22 (6), 1030-1051
 
@@ -458,9 +458,9 @@ P. Lavergne and V. Patilea (2008), ["Breaking the Curse of Dimensionality in Non
 
 P. Lavergne and V. Patilea (2012), ["One for All and All for One: Regression Checks with Many Regressors"](https://www.tandfonline.com/doi/full/10.1198/jbes.2011.07152), *Journal of Business & Economic Statistics*, 30 (1), 41-52
 
-J.H. Stock and M.W. Watson (2007), ["Why Has U.S. Inflation Become Harder to Forecast?"](https://onlinelibrary.wiley.com/doi/full/10.1111/j.1538-4616.2007.00014.x), *Journal of Money, Credit and Banking*, 39 (1), 3-33
+J.H. Stock and M.W. Watson (2006), ["Why Has U.S. Inflation Become Harder to Forecast?"](https://www.nber.org/papers/w12324), *Journal of Money, Credit and Banking*, 39 (1), 3-33
 
-C.F.J. Wu (1986) ["Jacknife, bootstrap and other resampling methods in regression analysis (with discussion)"](https://www.jstor.org/stable/2241454), *Annals of Statistics*, 14 (4), 1261-1350
+C.F.J. Wu (1986) ["Jackknife, bootstrap and other resampling methods in regression analysis (with discussion)"](https://www.jstor.org/stable/2241454), *National Bureau of Economic Research Working Paper*
 
 J. Yin, Z. Geng, R. Li, H. Wang (2010), ["Nonparametric covariance model"](https://www.jstor.org/stable/24309002), *Statistica Sinica*, 20 (1), 469-479
 
