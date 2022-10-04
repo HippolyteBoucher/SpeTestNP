@@ -6,3 +6,5 @@
 ^\.git$
 ^README\.md$
 ^\.Rproj\.user$
+^doc$
+^Meta$

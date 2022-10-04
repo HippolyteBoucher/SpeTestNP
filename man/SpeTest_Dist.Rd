@@ -37,7 +37,7 @@ If \code{type = "icm"} the vector is generated from the distribution of the test
 
 If \code{type = "zheng"} the vector is generated from the distribution of the test of Zheng (1996) under the null hypothesis
 
-If \code{type = "esca"} the vector is generated from the distribution of the test of Escnaciano (2006) under the null hypothesis, significantly increases computing time
+If \code{type = "esca"} the vector is generated from the distribution of the test of Escanciano (2006) under the null hypothesis, significantly increases computing time
 
 If \code{type = "pala"} the vector is generated from the distribution of the test of Lavergne and Patilea (2008) under the null hypothesis
 
@@ -192,7 +192,7 @@ P. Lavergne and V. Patilea (2012), "One for All and All for One: Regression Chec
 \cite{Journal of Business and Economic Statistics}, 30 (1), 41-52
 
 
-C.F.J. Wu (1986), "Jacknife, bootstrap and other resampling methods in regression analysis (with discussion)", \cite{Annals of Statistics}, 14 (4), 1261-1350
+C.F.J. Wu (1986), "Jackknife, bootstrap and other resampling methods in regression analysis (with discussion)", \cite{Annals of Statistics}, 14 (4), 1261-1350
 
 J. Yin, Z. Geng, R. Li, H. Wang (2010), "Nonparametric covariance model",
 \cite{Statistica Sinica}, 20 (1), 469-479

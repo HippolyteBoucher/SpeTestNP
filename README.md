@@ -53,7 +53,7 @@ To install `SpeTestNP` from Github the package `devtools` should be installed an
 
 ## References 
 
-H.J. Bierens (1982), ["Conistent Model Specification Test"][1], *Journal of Econometrics*, 20 (1), 105-134
+H.J. Bierens (1982), ["Consistent Model Specification Test"][1], *Journal of Econometrics*, 20 (1), 105-134
 
 J. C. Escanciano (2006), ["A Consistent Diagnostic Test for Regression Models Using Projections"][3], *Econometric Theory*, 22 (6), 1030-1051
 

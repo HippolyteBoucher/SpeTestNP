@@ -1,6 +1,6 @@
 Package: SpeTestNP
 Type: Package
-Title: Nonparametric Tests of Parametric Specifications
+Title: Non-Parametric Tests of Parametric Specifications
 Version: 1.1.0
 Date: 2022-09-30
 Depends:
@@ -22,3 +22,5 @@ VignetteBuilder: knitr, rmarkdown
 License: GPL-2
 NeedsCompilation: yes
 Encoding: UTF-8
+URL: 
+  https://github.com/HippolyteBoucher/SpeTestNP
