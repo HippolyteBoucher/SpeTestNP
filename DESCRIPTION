@@ -7,7 +7,7 @@ Depends:
     stats, foreach, parallel, doParallel
 Suggests:
     knitr, rmarkdown, AER
-Author@R:
+Authors@R:
     c(person("Hippolyte", "Boucher", role=c("aut","cre"),email="Hippolyte.Boucher@outlook.com"),
     person("Pascal", "Lavergne", role=c("aut"), email=lavergnetse@gmail.com))
 Maintainer: 
