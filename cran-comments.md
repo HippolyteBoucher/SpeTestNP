@@ -12,7 +12,7 @@
 
 * Changes to DOCUMENTATION, added VALUE field
 
-* After running `R CMD check` the only NOTE is
+* After running `R CMD check` the only note is
 
   New Submission
   
