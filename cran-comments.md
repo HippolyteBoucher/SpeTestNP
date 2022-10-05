@@ -25,4 +25,4 @@
      Patilea (24:24, 25:24)
      Zheng (29:14)
   
-  
+* The package `AER` is unavailable on Linux and the application of the vignette of `SpeTestNP` uses `AER` thus `SpeTestNP` cannot be built on Linux. Maybe this can be bypassed.
