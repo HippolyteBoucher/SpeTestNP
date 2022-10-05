@@ -12,18 +12,5 @@
 
 * Changes to DOCUMENTATION, added VALUE field
 
-* After running `R CMD check` the only note is
-
-  New Submission
-  
-  Possibly misspelled words in DESCRIPTION:
-     Bierens (21:49)
-     Escanciano (22:10)
-     Geng (28:16)
-     Gozalo (23:10)
-     Lavergne (24:8, 25:8)
-     Patilea (24:24, 25:24)
-     Zheng (29:14)
-  
 * The package `AER` is unavailable on Linux and the application of the vignette of `SpeTestNP` uses `AER` thus `SpeTestNP` cannot be built on Linux. Maybe this can be bypassed.
 
