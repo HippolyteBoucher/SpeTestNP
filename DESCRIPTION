@@ -2,19 +2,19 @@ Package: SpeTestNP
 Type: Package
 Title: Non-Parametric Tests of Parametric Specifications
 Version: 1.1.0
-Date: 2022-09-30
+Date: 2022-10-05
 Depends:
-  stats, foreach, parallel, doParallel
+    stats, foreach, parallel, doParallel
 Suggests:
-  knitr, rmarkdown, AER
+    knitr, rmarkdown, AER
 Author@R:
-  c(person("Hippolyte", "Boucher", role=c("aut","cre"),email="Hippolyte.Boucher@outlook.com"),
-  person("Pascal", "Lavergne", role=c("aut"), email=lavergnetse@gmail.com))
+    c(person("Hippolyte", "Boucher", role=c("aut","cre"),email="Hippolyte.Boucher@outlook.com"),
+    person("Pascal", "Lavergne", role=c("aut"), email=lavergnetse@gmail.com))
 Maintainer: 
-  Hippolyte Boucher <Hippolyte.Boucher@outlook.com>
+    Hippolyte Boucher <Hippolyte.Boucher@outlook.com>
 Author:
-  Hippolyte Boucher [aut, cre],
-  Pascal Lavergne [aut]
+    Hippolyte Boucher [aut, cre],
+    Pascal Lavergne [aut]
 Description: 
     Performs non-parametric tests of parametric specifications.
     Five tests are available. 
@@ -27,12 +27,11 @@ Description:
     P. Lavergne and V. Patilea (2012) <doi:10.1198/jbes.2011.07152>,
     J.H. Stock and M.W. Watson (2006) <doi:10.1111/j.1538-4616.2007.00014.x>,
     C.F.J. Wu (1986) <doi:10.1214/aos/1176350142>,
-    J. Yin, Z. Geng, R. Li, H. Wang (2010) <https://www.jstor.org/stable/24309002#metadata_info_tab_contents>
+    J. Yin, Z. Geng, R. Li, H. Wang (2010) <https://www.jstor.org/stable/24309002>
     and J.X. Zheng (1996) <doi:10.1016/0304-4076(95)01760-7>.
 Language: en-US
 VignetteBuilder: knitr, rmarkdown
 License: GPL-2
 NeedsCompilation: yes
 Encoding: UTF-8
-URL: 
-  https://github.com/HippolyteBoucher/SpeTestNP
+URL: https://github.com/HippolyteBoucher/SpeTestNP
