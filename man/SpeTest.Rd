@@ -22,7 +22,7 @@ Nonparametric specification test
 
 \usage{
 SpeTest(eq, type="icm", rejection="bootstrap", norma="no", boot="wild", 
-nboot=50, para=F, ker="normal",knorm="sd", cch="default", hv="default", 
+nboot=50, para=FALSE, ker="normal",knorm="sd", cch="default", hv="default", 
 nbeta="default", direct="default", alphan="default")
 }
 
@@ -75,9 +75,9 @@ Number of bootstraps used to compute the test p-value, by default \code{nboot = 
 \item{para}{
 Parallel computing
 
-If \code{para = F} parallel computing is not used to generate the bootstrap samples to compute the test p-value (default)
+If \code{para = FALSE} parallel computing is not used to generate the bootstrap samples to compute the test p-value (default)
 
-If \code{para = T} parallel computing is used to generate the bootstrap samples to compute the test p-value, significantly decreases computing time, makes use of all CPU cores except one
+If \code{para = TRUE} parallel computing is used to generate the bootstrap samples to compute the test p-value, significantly decreases computing time, makes use of all CPU cores except one
 }
 \item{ker}{
 Kernel function used in the central matrix and for the nonparametric covariance estimator
@@ -178,7 +178,7 @@ An object of class \code{STNP} is a list which contains the following elements:
 \note{
 The data used to obtain the fitted model \code{eq} should not contain factors, factor variables should be transformed into dummy variables a priori
 
-Requires the packages \code{stats}  (already installed and loaded by default in Rstudio), \code{foreach}, \code{parallel} and \code{doParallel} (if parallel computing is used to generate the vector) to be installed
+Requires the packages \code{stats}  (already installed and loaded by default in Rstudio), \code{foreach}, \code{parallel} and \code{doParallel} (if parallel computing is used to generate the test p-value) to be installed
 
 For more information and to be able to use the package to its full potential see the references
 }

@@ -1,6 +1,8 @@
 ---
 title: "Nonparametric Specification Testing with SpeTestNP"
-author: "Hippolyte Boucher"
+author: 
+  - Hippolyte Boucher
+  - Pascal Lavergne
 date: "2022-09-30"
 output:
   html_vignette:
@@ -226,7 +228,7 @@ Then to test the parametric specification or equivalently to test $H_0:\mathbb{E
 
 The function returns an object of class `STNP` which when printed with `print` or `print.STNP` returns the test statistic and its p-value. An object of type `STNP` is a list which not only contains the test statistic `stat` and its p-value `pval` but also the type of the test `type`, the rejection rule `rejection`, the test statistic normalization `norma`, the Kernel function denoted as $K(\cdot)$ used to compute the test statistic central matrix `ker`, the standardization method of test the statistic central matrix `knorm`, the type of bootstrap used to compute the p-value `boot`, the number of bootstrap samples used to compute the p-value `nboot`, the bandwidths `cch` and `hv`, etc... To obtain a summary of the test and its options the method `summary` or `summary.STNP` can be used on objects of class `STNP`.
 
-By default the test of Bierens (1982) with the standard normal density as the central matrix function is applied and the test p-value is obtained using 50 wild bootstrap samples with a naive estimator of the conditional variance of the errors. Among many options, by changing the argument `rejection` from `bootstrap` (the default) to `asymptotics` if `type = "zheng"` or `type = "pala"` or`type = "sicm"` the test p-value is then based on the asymptotic normality of these normalized test statistics under the null. In addition by default the test statistic is not normalized as in by default the denominator in $T_{zheng}$, $T_{pala}$ and $T_{sicm}$ is set to one. This can be changed by setting `norma = "naive"` to normalize the statistic using a naive estimator of the errors conditional variance as in $T_{zheng}$, or by setting `norma = "np"` to normalize the statistic using a nonparametric estimator of the errors conditional variance as in $T_{pala}$ and $T_{sicm}$. If `rejection = "bootstrap"` setting `para` to `T` greatly speeds up the computation of the p-value by deriving bootstrapped statistics in parallel. For more details refer to the next section or `help(SpeTest)`.
+By default the test of Bierens (1982) with the standard normal density as the central matrix function is applied and the test p-value is obtained using 50 wild bootstrap samples with a naive estimator of the conditional variance of the errors. Among many options, by changing the argument `rejection` from `bootstrap` (the default) to `asymptotics` if `type = "zheng"` or `type = "pala"` or`type = "sicm"` the test p-value is then based on the asymptotic normality of these normalized test statistics under the null. In addition by default the test statistic is not normalized as in by default the denominator in $T_{zheng}$, $T_{pala}$ and $T_{sicm}$ is set to one. This can be changed by setting `norma = "naive"` to normalize the statistic using a naive estimator of the errors conditional variance as in $T_{zheng}$, or by setting `norma = "np"` to normalize the statistic using a nonparametric estimator of the errors conditional variance as in $T_{pala}$ and $T_{sicm}$. If `rejection = "bootstrap"` setting `para` to `TRUE` greatly speeds up the computation of the p-value by deriving bootstrapped statistics in parallel. For more details refer to the next section or `help(SpeTest)`.
 
 Note that the functions `SpeTest_Stat` and `SpeTest_Dist` are also available. Both functions take similar arguments to `SpeTest`. `SpeTest_Stat` computes the specification test statistic, while `SpeTest_Dist` generates a vector of size `nboot` from the specification test statistic distribution under the null hypothesis using the bootstrap. The argument `para` is also available to `SpeTest_Dist`. `SpeTest_Stat` and `SpeTest_Dist` allow to easily perform simulation exercises.
 
@@ -274,9 +276,9 @@ To be more specific about the arguments of the function `SpeTest`:
 
 -   Argument `para` determines if parallel computing is used or not when `rejection = "bootstrap"`
 
-    If `para = F` parallel computing is not used to generate the bootstrap samples to compute the test p-value (default)
+    If `para = FALSE` parallel computing is not used to generate the bootstrap samples to compute the test p-value (default)
 
-    If `para = T` parallel computing is used to generate the bootstrap samples to compute the test p-value, significantly decreases computing time, makes use of all CPU cores except one
+    If `para = TRUE` parallel computing is used to generate the bootstrap samples to compute the test p-value, significantly decreases computing time, makes use of all CPU cores except one
 
 -   Argument `ker` refers to the Kernel function used in the central matrix and for the nonparametric covariance estimator if there is any
 

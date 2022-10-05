@@ -20,7 +20,7 @@ Nonparametric specification test statistic distribution
 }
 
 \usage{
-SpeTest_Dist(eq, type="icm", norma="no", boot="wild", nboot=50, para=F, ker="normal",
+SpeTest_Dist(eq, type="icm", norma="no", boot="wild", nboot=50, para=FALSE, ker="normal",
 knorm="sd", cch="default", hv="default", nbeta="default", direct="default", 
 alphan="default")
 }
@@ -65,9 +65,9 @@ Size of the vector drawn from the test statistic distribution under the null usi
 \item{para}{
 Parallel computing
 
-If \code{para = F} parallel computing is not used to generate the vector from the test statistic distribution under the null (default)
+If \code{para = FALSE} parallel computing is not used to generate the vector from the test statistic distribution under the null (default)
 
-If \code{para = T} parallel computing is used to generate the vector from the test statistic distribution under the null, significantly decreases computing time, makes use of all CPU cores except one
+If \code{para = TRUE} parallel computing is used to generate the vector from the test statistic distribution under the null, significantly decreases computing time, makes use of all CPU cores except one
 }
 \item{ker}{
 Kernel function used in the central matrix and for the nonparametric covariance estimator

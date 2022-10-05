@@ -19,6 +19,9 @@ An object of class \code{STNP} resulting from function \code{\link{SpeTest}}
 Additional summary arguments
 }
 }
+\value{
+No return value, prints a summary of the test
+}
 \author{
 Hippolyte Boucher <Hippolyte.Boucher@outlook.com>
 

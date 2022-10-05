@@ -673,7 +673,7 @@ SpeTest_Stat<-function(eq,type="icm",norma="no",ker="normal",knorm="sd",
     
   } else {
     
-    cat(" \n  Error: eq is neither of class lm or of class nls! \n ")
+    warning("'eq' is neither of class lm or of class nls")
     
   }
   

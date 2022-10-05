@@ -6,7 +6,7 @@
 
 
 SpeTest<-function(eq,type="icm",rejection="bootstrap",norma="no",
-                  boot="wild",nboot=50,para=F,ker="normal",knorm="sd",
+                  boot="wild",nboot=50,para=FALSE,ker="normal",knorm="sd",
                   cch="default",hv="default",nbeta="default",
                   direct="default",alphan="default"){
   
@@ -766,14 +766,14 @@ SpeTest<-function(eq,type="icm",rejection="bootstrap",norma="no",
         names(x)<-x_names
       }
       
-      if (para==F){
+      if (para==FALSE){
         
         Sboot<-v_boot(uhat=uhat,x=x,x_sd=x_sd,eq=eq,W_mat=W_mat,hyper=hyper,
                       norma=norma,cova=cova,type=type,boot=boot,nboot=nboot,
                       ker=ker,knorm=knorm,cch=cch,hv=hv,
                       direct=direct,alphan=alphan)
         
-      } else if (para==T){
+      } else if (para==TRUE){
         
         if (inherits(eq,"lm")){
           fit<-eq$fitted.values
@@ -973,7 +973,7 @@ summary.STNP<-function(object, ...){
     
   }
   
-  cat(" \n ")
+  warning("'eq' is neither of class lm or of class nls")
   
 }
 

@@ -19,7 +19,9 @@ An object of class \code{STNP} resulting from function \code{\link{SpeTest}}
 Additional print arguments
 }
 }
-
+\value{
+No return value, prints the test statistic and p-value
+}
 \author{
 Hippolyte Boucher <Hippolyte.Boucher@outlook.com>
 
