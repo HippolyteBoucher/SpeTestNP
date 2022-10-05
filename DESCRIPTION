@@ -9,7 +9,7 @@ Suggests:
     knitr, rmarkdown, AER
 Authors@R:
     c(person("Hippolyte", "Boucher", role=c("aut","cre"),email="Hippolyte.Boucher@outlook.com"),
-    person("Pascal", "Lavergne", role=c("aut"), email=lavergnetse@gmail.com))
+    person("Pascal", "Lavergne", role=c("aut"), email="lavergnetse@gmail.com"))
 Maintainer: 
     Hippolyte Boucher <Hippolyte.Boucher@outlook.com>
 Author:
