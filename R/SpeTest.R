@@ -821,7 +821,7 @@ SpeTest<-function(eq,type="icm",rejection="bootstrap",norma="no",
     
   } else {
     
-    cat(" \n  Error: eq is neither of class lm or of class nls! \n ")
+    warning("'eq' is neither of class lm or of class nls")
     
   }
   
@@ -973,7 +973,7 @@ summary.STNP<-function(object, ...){
     
   }
   
-  warning("'eq' is neither of class lm or of class nls")
+  
   
 }
 
