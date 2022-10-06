@@ -973,7 +973,7 @@ summary.STNP<-function(object, ...){
     
   }
   
-  
+  cat(" \n ")
   
 }
 
