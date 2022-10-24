@@ -14,4 +14,8 @@
 
 * The package `AER` is unavailable on Linux and the application of the vignette of `SpeTestNP` uses `AER` thus `SpeTestNP` cannot be built on Linux. Maybe this can be bypassed.
 
-## Changes to vignettes
+* Changes to vignettes
+
+* R CMD check results
+
+0 errors | 0 warnings | 0 note
