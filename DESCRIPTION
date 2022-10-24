@@ -2,7 +2,7 @@ Package: SpeTestNP
 Type: Package
 Title: Non-Parametric Tests of Parametric Specifications
 Version: 1.1.0
-Date: 2022-10-05
+Date: 2022-10-24
 Depends:
     stats, foreach, parallel, doParallel
 Suggests:
