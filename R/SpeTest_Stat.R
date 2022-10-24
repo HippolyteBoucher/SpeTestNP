@@ -121,8 +121,9 @@ SpeTest_Stat<-function(eq,type="icm",norma="no",ker="normal",knorm="sd",
     WE_el<-function(xi,xj,xr){
       
       k<-length(xr)
+      
       if (k>1){
-        if (xi==xr || xj==xr) {
+        if (prod(xi==xr) || prod(xj==xr)) {
           Aijr<-pi
         } else {
           Aij0<-abs(pi-acos(t(xi-xr)%*%(xj-xr)/(norm(xi-xr,type="O")*norm(xj-xr,type="O"))))
@@ -144,8 +145,17 @@ SpeTest_Stat<-function(eq,type="icm",norma="no",ker="normal",knorm="sd",
     ### Compute element Aij
     
     WE_sel<-function(i,j,x){
-      Aij<-mean(apply(x,1, function(e) WE_el(xi=x[i,],xj=x[j,],xr=as.matrix(e))))
+      
+      k<-dim(x)[2]
+      
+      if(k>1){
+        Aij<-mean(apply(x,1, function(e) WE_el(xi=x[i,],xj=x[j,],xr=as.matrix(e))))
+      } else if (k==1){
+        Aij<-mean(sapply(x, function(e) WE_el(xi=x[i],xj=x[j],xr=as.matrix(e))))
+      }
+      
       return(Aij)
+      
     }
     
     ### Compute column l of the central matrix
@@ -357,7 +367,7 @@ SpeTest_Stat<-function(eq,type="icm",norma="no",ker="normal",knorm="sd",
       if (norma==F){
         
         WU<-sapply(1:n, function(e) t(uhat)%*%WB(x,e,ker=ker,knorm=knorm,remov=F,h=1))
-        S<-as.numeric(t(uhat)%*%WU)/n
+        S<-as.numeric(t(uhat)%*%WU/n)
         
       } else  if (norma==T & cova=="naive"){
         
@@ -387,11 +397,12 @@ SpeTest_Stat<-function(eq,type="icm",norma="no",ker="normal",knorm="sd",
     zheng<-function(uhat,x,norma=F,cova="naive",ker,knorm,cch,hv){
       
       n<-dim(x)[1]
+      k<-dim(x)[2]
       
       if (norma==F){
         
         WU<-sapply(1:n, function(e) t(uhat)%*%WB(x,e,ker=ker,remov=T,knorm=knorm,h=cch))
-        S<-as.numeric(t(uhat)%*%WU)/n
+        S<-as.numeric(t(uhat)%*%WU/n)
         
       } else  if (norma==T & cova=="naive"){
         
@@ -460,30 +471,46 @@ SpeTest_Stat<-function(eq,type="icm",norma="no",ker="normal",knorm="sd",
       k<-dim(x)[2]
       
       if (k==1){
-        betam<-hyper[which.max(sapply(hyper, function(e) CP(uhat=uhat,x=x,beta=e,beta0=direct,alphan=alphan,ker=ker,knorm=knorm,remov=T,h=cch)))]
+        betam<-hyper[which.max(sapply(hyper, function(e) CP(uhat=uhat,x=x,
+                                                            beta=e,beta0=direct,
+                                                            alphan=alphan,
+                                                            ker=ker,knorm=knorm,
+                                                            remov=T,h=cch)))]
       } else {
-        betam<-hyper[,which.max(apply(hyper,2, function(e) CP(uhat=uhat,x=x,beta=e,beta0=direct,alphan=alphan,ker=ker,knorm=knorm,remov=T,h=cch)))]
+        betam<-hyper[,which.max(apply(hyper,2, function(e) CP(uhat=uhat,x=x,
+                                                              beta=e,
+                                                              beta0=direct,
+                                                              alphan=alphan,
+                                                              ker=ker,knorm=knorm,
+                                                              remov=T,h=cch)))]
       }
       
       if (norma==F){
         
-        WU<-sapply(1:n, function(e) t(uhat)%*%WP(x=x,i=e,beta=betam,ker=ker,knorm=knorm,remov=T,h=cch))
-        S<-as.numeric(t(uhat)%*%WU)/n
+        WU<-sapply(1:n, function(e) t(uhat)%*%WP(x=x,i=e,beta=betam,ker=ker,
+                                                 knorm=knorm,remov=T,h=cch))
+        S<-as.numeric(t(uhat)%*%WU)/(n-1)
         
       } else if (norma==T & cova=="naive"){
         
-        WU<-sapply(1:n, function(e) t(uhat)%*%WP(x=x,i=e,beta=betam,ker=ker,knorm=knorm,remov=T,h=cch))
+        WU<-sapply(1:n, function(e) t(uhat)%*%WP(x=x,i=e,beta=betam,ker=ker,
+                                                 knorm=knorm,remov=T,h=cch))
         S_num<-as.numeric(t(uhat)%*%WU)
-        WU2<-sapply(1:n, function(e) t(uhat^2)%*%(WP(x,i=e,beta=betam,ker=ker,knorm=knorm,remov=T,h=cch)^2))
+        WU2<-sapply(1:n, function(e) t(uhat^2)%*%(WP(x,i=e,beta=betam,ker=ker,
+                                                     knorm=knorm,remov=T,
+                                                     h=cch)^2))
         S_den<-sqrt(as.numeric(t(uhat^2)%*%WU2)*2)
         S<-S_num/S_den
         
       } else if (norma==T & cova=="np"){
         
-        WU<-sapply(1:n, function(e) t(uhat)%*%WP(x=x,i=e,beta=betam,ker=ker,knorm=knorm,remov=T,h=cch))
+        WU<-sapply(1:n, function(e) t(uhat)%*%WP(x=x,i=e,beta=betam,ker=ker,
+                                                 knorm=knorm,remov=T,h=cch))
         S_num<-as.numeric(t(uhat)%*%WU)
         uhatb<-est_cova(uhat,x,1:n,ker=ker,knorm=knorm,remov=T,h=hv)
-        WU2<-sapply(1:n, function(e) t(uhatb)%*%(WP(x,i=e,beta=betam,ker=ker,knorm=knorm,remov=T,h=cch)^2))
+        WU2<-sapply(1:n, function(e) t(uhatb)%*%(WP(x,i=e,beta=betam,ker=ker,
+                                                    knorm=knorm,remov=T,
+                                                    h=cch)^2))
         S_den<-sqrt(as.numeric(t(uhatb)%*%WU2)*2)
         S<-S_num/S_den
         
@@ -501,14 +528,18 @@ SpeTest_Stat<-function(eq,type="icm",norma="no",ker="normal",knorm="sd",
       
       if (norma==F){
         
-        WU<-sapply(1:n, function(e) t(uhat)%*%WS(x=x,hyper=hyper,l=e,ker=ker,knorm=knorm,remov=T,h=cch))
+        WU<-sapply(1:n, function(e) t(uhat)%*%WS(x=x,hyper=hyper,l=e,ker=ker,
+                                                 knorm=knorm,remov=T,h=cch))
         S<-as.numeric(t(uhat)%*%WU)/n
         
       } else if (norma==T & cova=="naive"){
         
-        WU<-sapply(1:n, function(e) t(uhat)%*%WS(x=x,hyper=hyper,l=e,ker=ker,knorm=knorm,remov=T,h=cch))
+        WU<-sapply(1:n, function(e) t(uhat)%*%WS(x=x,hyper=hyper,l=e,ker=ker,
+                                                 knorm=knorm,remov=T,h=cch))
         S_num<-as.numeric(t(uhat)%*%WU)
-        WU2<-sapply(1:n, function(e) t(uhat^2)%*%(WS(x=x,hyper=hyper,l=e,ker=ker,knorm=knorm,remov=T,h=cch)^2))
+        WU2<-sapply(1:n, function(e) t(uhat^2)%*%(WS(x=x,hyper=hyper,l=e,
+                                                     ker=ker,knorm=knorm,
+                                                     remov=T,h=cch)^2))
         S_den<-sqrt(as.numeric(t(uhat^2)%*%WU2)*2)
         S<-S_num/S_den
         
@@ -578,11 +609,11 @@ SpeTest_Stat<-function(eq,type="icm",norma="no",ker="normal",knorm="sd",
     ##### Default bandwidth if type = "zheng" or type = "pala" or type ="sicm"
     
     if (type=="zheng" & cch=="default"){
-      cch<-1.06*n^(-1/5)
+      cch<-1.06*n^(-1/(4+k))
     }
     
     if ((type=="pala" || type=="sicm") & cch=="default"){
-      cch<-1.06*n^(-1/(4+k))
+      cch<-1.06*n^(-1/5)
     }
     
     ##### Default bandwidth if the statistic is normalized with the nonparametric

@@ -121,8 +121,9 @@ SpeTest_Dist<-function(eq,type="icm",norma="no",boot="wild",nboot=50,para=FALSE,
     WE_el<-function(xi,xj,xr){
       
       k<-length(xr)
+      
       if (k>1){
-        if (xi==xr || xj==xr) {
+        if (prod(xi==xr) || prod(xj==xr)) {
           Aijr<-pi
         } else {
           Aij0<-abs(pi-acos(t(xi-xr)%*%(xj-xr)/(norm(xi-xr,type="O")*norm(xj-xr,type="O"))))
@@ -144,8 +145,17 @@ SpeTest_Dist<-function(eq,type="icm",norma="no",boot="wild",nboot=50,para=FALSE,
     ### Compute element Aij
     
     WE_sel<-function(i,j,x){
-      Aij<-mean(apply(x,1, function(e) WE_el(xi=x[i,],xj=x[j,],xr=as.matrix(e))))
+      
+      k<-dim(x)[2]
+      
+      if(k>1){
+        Aij<-mean(apply(x,1, function(e) WE_el(xi=x[i,],xj=x[j,],xr=as.matrix(e))))
+      } else if (k==1){
+        Aij<-mean(sapply(x, function(e) WE_el(xi=x[i],xj=x[j],xr=as.matrix(e))))
+      }
+      
       return(Aij)
+      
     }
     
     ### Compute column l of the central matrix
@@ -668,11 +678,11 @@ SpeTest_Dist<-function(eq,type="icm",norma="no",boot="wild",nboot=50,para=FALSE,
     ##### Default bandwidth if type = "zheng" or type = "pala" or type ="sicm"
     
     if (type=="zheng" & cch=="default"){
-      cch<-1.06*n^(-1/5)
+      cch<-1.06*n^(-1/(4+k))
     }
     
     if ((type=="pala" || type=="sicm") & cch=="default"){
-      cch<-1.06*n^(-1/(4+k))
+      cch<-1.06*n^(-1/5)
     }
     
     ##### Default bandwidth if the statistic is normalized with the nonparametric

@@ -77,11 +77,11 @@ Central matrix kernel bandwidth
 If \code{type = "icm"} or \code{type = "esca"} then \code{cch} always equals \code{1}
 
 If \code{type = "zheng"} the \code{"default"} bandwidth is the scaled
-rule of thumb: \code{cch = 1.06*n^(-1/5)}
-
-If \code{type = "sicm"} and \code{type = "pala"} the \code{"default"}
-bandwidth is the scaled rule of thumb: \code{cch = 1.06*n^(-1/(4+k))} where \code{k} is
+rule of thumb: \code{cch = 1.06*n^(-1/(4+k))} where \code{k} is
 the number of regressors
+
+If \code{type = "sicm"} or \code{type = "pala"} the \code{"default"}
+bandwidth is the scaled rule of thumb: \code{cch = 1.06*n^(-1/5)}
 
 The user may change the bandwidth when \code{type = "zheng"}, \code{type = "sicm"} or \code{type = "pala"}
 }
